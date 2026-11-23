@@ -1,0 +1,3293 @@
+<!doctype html>
+<html lang="tr" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Refik Webmap | FİLE Market Rehberi</title>
+  <style>
+    :root {
+      --navy: #0f233b;
+      --navy-2: #1c3d63;
+      --accent: #0f766e;
+      --accent-2: #0284c7;
+      --accent-soft: rgba(15, 118, 110, 0.14);
+      --bg: #eef2f6;
+      --surface: rgba(255, 255, 255, 0.92);
+      --surface-solid: #ffffff;
+      --surface-2: #f8fafc;
+      --text: #0f172a;
+      --muted: #5b6b7d;
+      --line: #dbe3ec;
+      --danger: #dc2626;
+      --ok: #15803d;
+      --shadow: 0 18px 42px -14px rgba(15, 35, 59, 0.16);
+      --motion-ease: cubic-bezier(0.22, 1, 0.36, 1);
+      --motion-dur: 0.45s;
+    }
+
+    html[data-theme="dark"] {
+      --navy: #09121e;
+      --navy-2: #13253c;
+      --accent: #2dd4bf;
+      --accent-2: #38bdf8;
+      --accent-soft: rgba(45, 212, 191, 0.16);
+      --bg: #080d14;
+      --surface: rgba(17, 26, 39, 0.9);
+      --surface-solid: #111a27;
+      --surface-2: #172334;
+      --text: #f1f5f9;
+      --muted: #94a3b8;
+      --line: #233348;
+      --shadow: 0 20px 48px -12px rgba(0, 0, 0, 0.65);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body, header, .auth-shell, .card, .toolbar input, .account-box, .admin-drawer,
+    .drawer-header, .drawer-body, .kpi-card, .list-box, .call-picker-card,
+    .confirm-card, .announcement-bar, .code-badge, input, textarea, select,
+    button, .link {
+      transition: background-color 0.55s var(--motion-ease),
+                  background 0.55s var(--motion-ease),
+                  color 0.45s var(--motion-ease),
+                  border-color 0.5s var(--motion-ease),
+                  box-shadow 0.55s var(--motion-ease),
+                  transform 0.28s var(--motion-ease);
+    }
+
+    body {
+      margin: 0;
+      background:
+        radial-gradient(circle at 12% 8%, var(--accent-soft), transparent 36%),
+        radial-gradient(circle at 88% 18%, rgba(2, 132, 199, 0.12), transparent 40%),
+        var(--bg);
+      font: 15px/1.55 "Segoe UI", -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* AÇILIŞ YÜKLEME EKRANI */
+    .preloader-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-2) 65%, var(--accent) 165%);
+      opacity: 1;
+      visibility: visible;
+      transition: opacity 0.45s var(--motion-ease), visibility 0.45s var(--motion-ease);
+    }
+    .preloader-overlay.hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .wrapper {
+      width: 200px;
+      height: 60px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .circle {
+      width: 20px;
+      height: 20px;
+      position: absolute;
+      border-radius: 50%;
+      background-color: #fff;
+      left: 15%;
+      transform-origin: 50%;
+      animation: circle7124 .5s alternate infinite ease;
+    }
+
+    @keyframes circle7124 {
+      0% {
+        top: 60px;
+        height: 5px;
+        border-radius: 50px 50px 25px 25px;
+        transform: scaleX(1.7);
+      }
+      40% {
+        height: 20px;
+        border-radius: 50%;
+        transform: scaleX(1);
+      }
+      100% {
+        top: 0%;
+      }
+    }
+
+    .circle:nth-child(2) {
+      left: 45%;
+      animation-delay: .2s;
+    }
+
+    .circle:nth-child(3) {
+      left: auto;
+      right: 15%;
+      animation-delay: .3s;
+    }
+
+    .shadow {
+      width: 20px;
+      height: 4px;
+      border-radius: 50%;
+      background-color: rgba(0,0,0,0.9);
+      position: absolute;
+      top: 62px;
+      transform-origin: 50%;
+      z-index: -1;
+      left: 15%;
+      filter: blur(1px);
+      animation: shadow046 .5s alternate infinite ease;
+    }
+
+    @keyframes shadow046 {
+      0% {
+        transform: scaleX(1.5);
+      }
+      40% {
+        transform: scaleX(1);
+        opacity: .7;
+      }
+      100% {
+        transform: scaleX(.2);
+        opacity: .4;
+      }
+    }
+
+    .shadow:nth-child(4) {
+      left: 45%;
+      animation-delay: .2s
+    }
+
+    .shadow:nth-child(5) {
+      left: auto;
+      right: 15%;
+      animation-delay: .3s;
+    }
+
+    .ambient-orb {
+      position: fixed;
+      pointer-events: none;
+      border-radius: 50%;
+      filter: blur(90px);
+      opacity: 0.26;
+      z-index: 0;
+      width: 380px;
+      height: 380px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      top: -90px;
+      right: -80px;
+      transition: transform 0.9s var(--motion-ease), background 0.6s var(--motion-ease), opacity 0.6s var(--motion-ease);
+    }
+    html[data-theme="dark"] .ambient-orb {
+      opacity: 0.22;
+      transform: translate3d(-40px, 35px, 0) scale(1.15);
+    }
+
+    .app-layer {
+      position: relative;
+      z-index: 1;
+    }
+
+    header {
+      background: linear-gradient(125deg, var(--navy) 0%, var(--navy-2) 65%, var(--accent) 165%);
+      color: #ffffff;
+      padding: 24px max(18px, calc((100% - 1100px) / 2)) 30px;
+      box-shadow: var(--shadow);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    .header-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .brand-group {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-icon-badge {
+      width: 48px;
+      height: 48px;
+      border-radius: 25%;
+      overflow: hidden;
+      background: #000000;
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.28);
+      display: grid;
+      place-items: center;
+      flex-shrink: 0;
+      animation: floatBadge 4s ease-in-out infinite;
+    }
+    .brand-icon-badge svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    @keyframes floatBadge {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-4px) rotate(3deg); }
+    }
+
+    header .brand {
+      font-weight: 800;
+      letter-spacing: 1.4px;
+      font-size: 18px;
+    }
+
+    .header-controls {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    /* GECE/GÜNDÜZ SWITCH */
+    .switch {
+      font-size: 17px;
+      position: relative;
+      display: inline-block;
+      width: 64px;
+      height: 34px;
+      flex-shrink: 0;
+      user-select: none;
+    }
+
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #73C0FC;
+      transition: .4s;
+      border-radius: 30px;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 30px;
+      width: 30px;
+      border-radius: 20px;
+      left: 2px;
+      bottom: 2px;
+      z-index: 2;
+      background-color: #e8e8e8;
+      transition: .4s;
+    }
+
+    .sun svg {
+      position: absolute;
+      top: 6px;
+      left: 36px;
+      z-index: 1;
+      width: 24px;
+      height: 24px;
+    }
+
+    .moon svg {
+      fill: #73C0FC;
+      position: absolute;
+      top: 5px;
+      left: 5px;
+      z-index: 1;
+      width: 24px;
+      height: 24px;
+    }
+
+    .sun svg {
+      animation: rotate 15s linear infinite;
+    }
+
+    @keyframes rotate {
+      0% { transform: rotate(0); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .input:checked + .slider {
+      background-color: #183153;
+    }
+
+    .input:focus + .slider {
+      box-shadow: 0 0 1px #183153;
+    }
+
+    .input:checked + .slider:before {
+      transform: translateX(30px);
+    }
+
+    .hamburger-btn {
+      width: 44px;
+      height: 38px;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      background: rgba(255, 255, 255, 0.16);
+      color: #ffffff;
+      padding: 0;
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      cursor: pointer;
+    }
+    .hamburger-btn:hover { background: rgba(255, 255, 255, 0.26); }
+    .hamburger-btn span {
+      display: block;
+      width: 20px;
+      height: 2.2px;
+      border-radius: 2px;
+      background: #ffffff;
+      transition: transform 0.3s var(--motion-ease), opacity 0.25s ease;
+    }
+    .hamburger-btn.open span:nth-child(1) { transform: translateY(7.2px) rotate(45deg); }
+    .hamburger-btn.open span:nth-child(2) { opacity: 0; }
+    .hamburger-btn.open span:nth-child(3) { transform: translateY(-7.2px) rotate(-45deg); }
+
+    .hero-media,
+    .loader {
+      position: relative;
+      margin-top: 16px;
+      width: 100%;
+      min-height: 190px;
+      height: 100%;
+      flex: 1;
+      border-radius: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      background: rgba(15, 35, 59, 0.72);
+      color: #ffffff;
+      font-weight: 900;
+      font-size: clamp(28px, 6vw, 64px);
+      letter-spacing: 0.35em;
+      text-shadow: 0 4px 24px rgba(0, 0, 0, 0.65);
+    }
+    .hero-media.active,
+    .loader.active {
+      display: flex;
+      animation: fadeSlideUp 0.55s var(--motion-ease);
+    }
+    .loader::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background: conic-gradient(from 0deg, transparent, rgba(56, 189, 248, 0.25), rgba(45, 212, 191, 0.25), transparent);
+      animation: loaderSweep 6s linear infinite;
+      pointer-events: none;
+    }
+    .loader::after {
+      content: "";
+      position: absolute;
+      inset: 2px;
+      border-radius: 12px;
+      background: linear-gradient(120deg, rgba(9, 18, 30, 0.82), rgba(28, 61, 99, 0.68), rgba(15, 118, 110, 0.62));
+      z-index: 0;
+      pointer-events: none;
+    }
+    .loader > * {
+      position: relative;
+      z-index: 1;
+    }
+    @keyframes loaderSweep {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    header h1 {
+      margin: auto 0 4px;
+      padding-top: 18px;
+      font-size: 31px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+    }
+    header p { margin: 0; color: #dbeafe; font-size: 15px; }
+
+    .announcement-bar {
+      margin-top: 16px;
+      padding: 11px 16px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.14);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      font-size: 13.5px;
+      display: none;
+    }
+    .announcement-bar.active { display: block; }
+
+    .wrap { max-width: 1100px; margin: 24px auto; padding: 0 16px 56px; }
+
+    .auth-shell {
+      max-width: 460px;
+      margin: 36px auto 24px;
+      background: var(--surface);
+      backdrop-filter: blur(14px);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 28px;
+      box-shadow: var(--shadow);
+      animation: fadeSlideUp 0.5s var(--motion-ease);
+    }
+
+    @keyframes fadeSlideUp {
+      from { opacity: 0; transform: translateY(14px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .auth-badge {
+      display: inline-block;
+      padding: 5px 12px;
+      border-radius: 999px;
+      font-size: 11.5px;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      background: var(--accent-soft);
+      color: var(--accent);
+      margin-bottom: 10px;
+    }
+    .auth-shell h2 { margin: 0 0 6px; font-size: 23px; font-weight: 800; letter-spacing: -0.015em; }
+    .auth-sub { color: var(--muted); font-size: 13.5px; margin: 0 0 18px; }
+
+    .field { margin-bottom: 13px; }
+    .field label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 5px; color: var(--text); }
+
+    input, textarea, select {
+      width: 100%;
+      padding: 11px 13px;
+      border: 1px solid var(--line);
+      border-radius: 11px;
+      font: inherit;
+      background: var(--surface-2);
+      color: var(--text);
+    }
+    input:focus, textarea:focus, select:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px var(--accent-soft);
+    }
+    input[type="color"] { padding: 4px; height: 42px; cursor: pointer; }
+
+    button, .link {
+      border: 0;
+      border-radius: 11px;
+      padding: 10px 15px;
+      font: 600 14px "Segoe UI", -apple-system, Arial, sans-serif;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+    button:active, .link:active { transform: scale(0.97); }
+
+    .primary {
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      color: #ffffff;
+      box-shadow: 0 6px 18px -6px var(--accent);
+    }
+    .plain { background: var(--surface-solid); border: 1px solid var(--line); color: var(--text); }
+    .plain:hover { border-color: var(--accent); }
+    .danger-btn { background: rgba(220, 38, 38, 0.12); color: var(--danger); border: 1px solid rgba(220, 38, 38, 0.25); }
+
+    .auth-actions { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-top: 8px; font-size: 13px; flex-wrap: wrap; }
+    .link-btn { background: none; border: none; padding: 0; color: var(--accent); font-weight: 600; font-size: 13px; }
+    .admin-login-under-btn {
+      margin-top: 10px;
+      width: 100%;
+      background: var(--surface-2);
+      border: 1px solid var(--line);
+      color: var(--text);
+      padding: 10px 14px;
+      border-radius: 11px;
+      font-weight: 700;
+      font-size: 13.5px;
+    }
+    .admin-login-under-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+    .msg-box { padding: 10px 12px; border-radius: 10px; font-size: 13px; margin-bottom: 12px; display: none; }
+    .msg-box.err { display: block; background: rgba(220, 38, 38, 0.12); color: #ef5350; border: 1px solid rgba(220, 38, 38, 0.3); }
+    .msg-box.ok { display: block; background: rgba(21, 128, 61, 0.14); color: #34d399; border: 1px solid rgba(21, 128, 61, 0.35); }
+
+    .welcome-splash {
+      position: fixed;
+      inset: 0;
+      z-index: 9500;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-2) 65%, var(--accent) 165%);
+      opacity: 0;
+      transition: opacity 0.4s var(--motion-ease);
+    }
+    .welcome-splash.active {
+      display: flex;
+      opacity: 1;
+    }
+    .welcome-splash.leaving {
+      opacity: 0;
+    }
+
+    /* From Uiverse.io by elijahgummer */
+    .welcome-splash .hole {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      width: 240px;
+      height: 240px;
+    }
+    .welcome-splash .hole i {
+      display: block;
+      position: absolute;
+      width: 50px;
+      height: 50px;
+      border-radius: 140px;
+      opacity: 0;
+      animation-name: scale;
+      animation-duration: 2s;
+      animation-iteration-count: infinite;
+      animation-timing-function: linear;
+    }
+    .welcome-splash .hole i:nth-child(1) { animation-delay: 0.3s; }
+    .welcome-splash .hole i:nth-child(2) { animation-delay: 0.6s; }
+    .welcome-splash .hole i:nth-child(3) { animation-delay: 0.9s; }
+    .welcome-splash .hole i:nth-child(4) { animation-delay: 1.2s; }
+    .welcome-splash .hole i:nth-child(5) { animation-delay: 1.5s; }
+    .welcome-splash .hole i:nth-child(6) { animation-delay: 1.8s; }
+    .welcome-splash .hole i:nth-child(7) { animation-delay: 2.1s; }
+    .welcome-splash .hole i:nth-child(8) { animation-delay: 2.4s; }
+    .welcome-splash .hole i:nth-child(9) { animation-delay: 2.7s; }
+    .welcome-splash .hole i:nth-child(10) { animation-delay: 3s; }
+
+    @keyframes scale {
+      0% {
+        transform: scale(2);
+        opacity: 0;
+        box-shadow: 0px 0px 50px rgba(255, 255, 255, 0.5);
+      }
+      50% {
+        transform: scale(1) translate(0px, -5px);
+        opacity: 1;
+        box-shadow: 0px 8px 20px rgba(255, 255, 255, 0.5);
+      }
+      100% {
+        transform: scale(0.1) translate(0px, 5px);
+        opacity: 0;
+        box-shadow: 0px 10px 20px rgba(255, 255, 255, 0);
+      }
+    }
+
+    .role-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 11px;
+      border-radius: 999px;
+      font-size: 11.5px;
+      font-weight: 800;
+      letter-spacing: 0.03em;
+      background: var(--accent-soft);
+      color: var(--accent);
+    }
+
+    .live-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--ok);
+      background: rgba(21, 128, 61, 0.12);
+      padding: 4px 10px;
+      border-radius: 999px;
+    }
+
+    .toolbar { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 12px; }
+    .toolbar input {
+      flex: 1;
+      min-width: 220px;
+      padding: 13px 16px;
+      border-radius: 14px;
+      background: var(--surface-solid);
+      box-shadow: 0 6px 20px -12px rgba(15, 35, 59, 0.14);
+    }
+
+    .count { color: var(--muted); font-size: 13px; font-weight: 500; margin: 8px 0 14px; }
+
+    .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }
+    .card {
+      position: relative;
+      background: var(--surface);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 18px;
+      box-shadow: 0 8px 24px -14px rgba(15, 35, 59, 0.12);
+      animation: fadeSlideUp 0.45s var(--motion-ease) both;
+      overflow: hidden;
+    }
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: 0 0 auto 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      opacity: 0;
+      transition: opacity 0.28s var(--motion-ease);
+    }
+    .card:hover { transform: translateY(-5px); box-shadow: var(--shadow); border-color: var(--accent); }
+    .card:hover::before { opacity: 1; }
+
+    .card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; }
+    .name { font-size: 19.5px; font-weight: 750; letter-spacing: -0.01em; line-height: 1.25; }
+    .code-badge {
+      flex-shrink: 0;
+      padding: 3px 9px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 700;
+      background: var(--accent-soft);
+      color: var(--accent);
+    }
+    .meta { font-size: 13px; color: var(--muted); margin: 6px 0 10px; }
+    .address { font-size: 13px; color: var(--muted); min-height: 22px; margin-bottom: 14px; }
+
+    .actions { display: flex; gap: 8px; flex-wrap: wrap; align-items: stretch; }
+    .actions > * { flex: 1; min-height: 44px; padding: 10px 12px; font-size: 13px; border-radius: 10px; }
+
+    .google { background: rgba(2, 132, 199, 0.13); color: #0284c7; }
+    .yandex { background: rgba(220, 38, 38, 0.12); color: #dc2626; }
+    .call { background: rgba(15, 118, 110, 0.14); color: #0f766e; }
+    .map-icon-btn { padding-top: 7px; padding-bottom: 7px; }
+    .map-icon-btn svg { width: 32px; height: 43px; display: block; flex-shrink: 0; }
+    .map-icon-btn img { width: 36px; height: 36px; display: block; flex-shrink: 0; border-radius: 8px; object-fit: contain; overflow: visible; }
+    html[data-theme="dark"] .google { background: rgba(56, 189, 248, 0.16); color: #38bdf8; }
+    html[data-theme="dark"] .yandex { background: rgba(248, 113, 113, 0.15); color: #f87171; }
+    html[data-theme="dark"] .call { background: rgba(45, 212, 191, 0.16); color: #2dd4bf; }
+
+    /* SAĞ ÜST ÇEKMECE (☰) */
+    .drawer-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(9, 17, 28, 0.58);
+      backdrop-filter: blur(5px);
+      z-index: 90;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.35s var(--motion-ease);
+    }
+    .drawer-backdrop.open { opacity: 1; pointer-events: auto; }
+
+    .admin-drawer {
+      position: fixed;
+      top: 0;
+      right: 0;
+      height: 100vh;
+      width: min(860px, 96vw);
+      background: var(--surface-solid);
+      border-left: 1px solid var(--line);
+      box-shadow: -20px 0 52px rgba(0, 0, 0, 0.32);
+      z-index: 100;
+      display: flex;
+      flex-direction: column;
+      transform: translateX(102%);
+      transition: transform 0.42s var(--motion-ease);
+    }
+    .admin-drawer.open { transform: translateX(0); }
+
+    .drawer-header {
+      padding: 18px 22px;
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      background: var(--surface-2);
+    }
+    .drawer-body { padding: 18px 22px 36px; overflow-y: auto; flex: 1; }
+
+    .account-box {
+      padding: 16px;
+      border-radius: 16px;
+      background: var(--surface-2);
+      border: 1px solid var(--line);
+      margin-bottom: 18px;
+    }
+    .account-box h3 {
+      margin: 0 0 6px;
+      font-size: 16px;
+    }
+    .account-meta {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 14px;
+    }
+    .account-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .delete-confirm-panel {
+      margin-top: 14px;
+      padding: 14px;
+      border-radius: 14px;
+      border: 1px solid rgba(220, 38, 38, 0.35);
+      background: rgba(220, 38, 38, 0.08);
+    }
+
+    .tabs {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 12px;
+      margin: 0 0 18px;
+    }
+    .tab-btn.active {
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      color: #ffffff;
+      border-color: transparent;
+    }
+    .tab-pane[hidden] { display: none; }
+
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+    .kpi-card {
+      background: var(--surface-2);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 12px 14px;
+    }
+    .kpi-num { font-size: 22px; font-weight: 800; color: var(--accent); line-height: 1.1; }
+    .kpi-label { font-size: 12px; color: var(--muted); margin-top: 4px; }
+
+    .formgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .formgrid .wide { grid-column: 1 / -1; }
+
+    .list-box {
+      max-height: 310px;
+      overflow: auto;
+      margin-top: 14px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 4px 14px;
+      background: var(--surface-2);
+    }
+    .row-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 11px 0;
+      border-bottom: 1px solid var(--line);
+      flex-wrap: wrap;
+    }
+    .row-item:last-child { border-bottom: none; }
+
+    .status-dot {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 700;
+      margin-left: 4px;
+    }
+    .status-active { background: rgba(16, 185, 129, 0.16); color: #10b981; }
+    .status-passive { background: rgba(245, 158, 11, 0.18); color: #f59e0b; }
+    .status-blocked { background: rgba(239, 68, 68, 0.18); color: #ef4444; }
+    .status-online { background: rgba(56, 189, 248, 0.18); color: #38bdf8; }
+
+    .check-row { display: flex; align-items: center; gap: 8px; font-size: 14px; padding: 6px 0; }
+    .check-row input[type="checkbox"] { width: auto; }
+
+    .call-picker-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(9, 17, 28, 0.68);
+      backdrop-filter: blur(5px);
+      z-index: 210;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+    .call-picker-backdrop.open { display: flex; }
+    .call-picker-card {
+      width: min(420px, 100%);
+      background: var(--surface-solid);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 22px;
+      box-shadow: var(--shadow);
+      animation: fadeSlideUp 0.24s var(--motion-ease);
+      text-align: center;
+    }
+    .call-picker-card h3 { margin: 0 0 4px; font-size: 19px; font-weight: 800; }
+    .call-picker-sub { margin: 0 0 16px; color: var(--muted); font-size: 13px; }
+    .call-choice-list { display: flex; flex-direction: column; gap: 10px; }
+    .call-choice-btn {
+      width: 100%;
+      padding: 13px 16px;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      background: var(--surface-2);
+      color: var(--text);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+      text-decoration: none;
+      font-weight: 700;
+    }
+    .call-choice-btn:hover {
+      border-color: var(--accent);
+      background: var(--accent-soft);
+      transform: translateY(-2px);
+    }
+    .call-choice-tag {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--accent);
+      font-weight: 800;
+    }
+    .phone-diff-digit {
+      color: #ef4444;
+      font-size: 1.18em;
+      font-weight: 900;
+      letter-spacing: 0.02em;
+    }
+    .call-choice-num {
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--text);
+    }
+    .call-cancel-btn {
+      margin-top: 12px;
+      width: 100%;
+    }
+
+    .confirm-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(9, 17, 28, 0.68);
+      backdrop-filter: blur(4px);
+      z-index: 200;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+    .confirm-backdrop.open { display: flex; }
+    .confirm-card {
+      width: min(440px, 100%);
+      background: var(--surface-solid);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 22px;
+      box-shadow: var(--shadow);
+      animation: fadeSlideUp 0.25s var(--motion-ease);
+    }
+    .confirm-card h3 { margin: 0 0 8px; font-size: 18px; }
+    .confirm-card p { margin: 0 0 18px; color: var(--muted); font-size: 14px; }
+    .confirm-actions { display: flex; justify-content: flex-end; gap: 8px; flex-wrap: wrap; }
+
+    small.note { display: block; color: var(--muted); margin-top: 16px; }
+
+    @media (max-width: 560px) {
+      header h1 { font-size: 24px; }
+      .formgrid { grid-template-columns: 1fr; }
+      .formgrid .wide { grid-column: auto; }
+    }
+
+    :root {
+      --pull-expand: 0;
+    }
+
+    /* YUKARIDAN AŞAĞI ÇEKME / KAYDIRMA YUMUŞAK GENİŞLEME & KÜÇÜLME */
+    header {
+      min-height: 245px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      padding-top: calc(24px + var(--pull-expand) * 26px);
+      padding-bottom: calc(18px + var(--pull-expand) * 30px);
+      transition: padding-top 0.35s var(--motion-ease),
+                  padding-bottom 0.35s var(--motion-ease),
+                  background-color 0.55s var(--motion-ease),
+                  border-color 0.5s var(--motion-ease),
+                  box-shadow 0.55s var(--motion-ease);
+      will-change: padding-top, padding-bottom;
+    }
+
+    header .brand-icon-badge {
+      transform: scale(calc(1 + var(--pull-expand) * 0.22));
+      transform-origin: center center;
+      transition: transform 0.35s var(--motion-ease);
+      will-change: transform;
+    }
+
+    header .brand {
+      font-size: calc(18px + var(--pull-expand) * 3.5px);
+      transition: font-size 0.35s var(--motion-ease), letter-spacing 0.35s var(--motion-ease);
+    }
+
+    header h1 {
+      font-size: calc(31px + var(--pull-expand) * 7.5px);
+      transform-origin: left center;
+      transition: font-size 0.35s var(--motion-ease), margin-top 0.35s var(--motion-ease);
+      will-change: font-size;
+    }
+
+    header p {
+      font-size: calc(15px + var(--pull-expand) * 2px);
+      transition: font-size 0.35s var(--motion-ease), opacity 0.35s var(--motion-ease);
+    }
+
+    @media (max-width: 560px) {
+      header h1 {
+        font-size: calc(24px + var(--pull-expand) * 6.5px);
+      }
+    }
+
+    /* ÜST BANNER ARKA PLAN SİM SİYAH & BÜYÜK SOLAR SİSTEM ANİMASYONU */
+    header {
+      position: relative;
+      overflow: hidden;
+      background: #000000 !important;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+    }
+
+    header .header-top,
+    header .hero-media,
+    header h1,
+    header p,
+    header .announcement-bar {
+      position: relative;
+      z-index: 2;
+    }
+
+    header .solar-system {
+      position: absolute;
+      top: 52%;
+      right: clamp(4px, 3.5vw, 56px);
+      width: 440px;
+      height: 440px;
+      transform: translate(0, -50%) scale(calc(1.62 + var(--pull-expand) * 0.34));
+      pointer-events: none;
+      z-index: 1;
+      opacity: calc(0.95 + var(--pull-expand) * 0.05);
+      transition: transform 0.35s var(--motion-ease), opacity 0.35s var(--motion-ease);
+      will-change: transform, opacity;
+    }
+
+    header .solar-system .sun {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 46px;
+      height: 46px;
+      margin: -23px 0 0 -23px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 35%, #fffbeb 0%, #facc15 48%, #ea580c 100%);
+      box-shadow: 0 0 28px rgba(250, 204, 21, 0.9), 0 0 56px rgba(234, 88, 12, 0.5);
+    }
+
+    header .solar-system .corona {
+      position: absolute;
+      inset: -12px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(250, 204, 21, 0.38) 35%, rgba(249, 115, 22, 0.1) 70%, transparent 100%);
+      animation: pulseCorona 3.2s ease-in-out infinite alternate;
+    }
+
+    @keyframes pulseCorona {
+      from { transform: scale(0.94); opacity: 0.7; }
+      to { transform: scale(1.16); opacity: 1; }
+    }
+
+    header .solar-system .orbit {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      border-radius: 50%;
+      border: none;
+      transform-origin: center center;
+      animation: orbitSpin var(--dur, 12s) linear infinite;
+    }
+
+    header .solar-system .planet {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    header .solar-system .mercury-orbit {
+      --dur: 5s;
+      width: 88px;
+      height: 88px;
+      margin: -44px 0 0 -44px;
+    }
+    header .solar-system .mercury {
+      width: 9px;
+      height: 9px;
+      background: radial-gradient(circle at 30% 30%, #f1f5f9, #94a3b8);
+    }
+
+    header .solar-system .venus-orbit {
+      --dur: 8.5s;
+      width: 132px;
+      height: 132px;
+      margin: -66px 0 0 -66px;
+    }
+    header .solar-system .venus {
+      width: 12px;
+      height: 12px;
+      background: radial-gradient(circle at 30% 30%, #fef08a, #d97706);
+      box-shadow: 0 0 9px rgba(253, 224, 71, 0.5);
+    }
+
+    header .solar-system .earth-orbit {
+      --dur: 13s;
+      width: 184px;
+      height: 184px;
+      margin: -92px 0 0 -92px;
+    }
+    header .solar-system .earth {
+      width: 15px;
+      height: 15px;
+      background: radial-gradient(circle at 35% 35%, #7dd3fc, #0284c7 65%, #1e3a8a 100%);
+      box-shadow: 0 0 12px rgba(56, 189, 248, 0.75);
+    }
+    header .solar-system .moon {
+      position: absolute;
+      top: -7px;
+      left: 50%;
+      width: 5px;
+      height: 5px;
+      margin-left: -2.5px;
+      border-radius: 50%;
+      background: #e2e8f0;
+      transform-origin: 2.5px 10px;
+      animation: orbitSpin 2.6s linear infinite;
+    }
+    header .solar-system .iss {
+      position: absolute;
+      top: 12px;
+      left: calc(50% + 15px);
+      width: 8px;
+      height: 2.5px;
+      background: #ffffff;
+      border-radius: 1px;
+      box-shadow: 0 0 6px rgba(255, 255, 255, 0.95);
+      animation: issFloat 4.5s ease-in-out infinite alternate;
+    }
+    header .solar-system .iss-panels {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 12px;
+      height: 5px;
+      transform: translate(-50%, -50%);
+      border-left: 2.5px solid #38bdf8;
+      border-right: 2.5px solid #38bdf8;
+    }
+
+    @keyframes issFloat {
+      from { transform: translate(-2px, -2px) rotate(-15deg); }
+      to { transform: translate(3px, 3px) rotate(18deg); }
+    }
+
+    header .solar-system .mars-orbit {
+      --dur: 19s;
+      width: 238px;
+      height: 238px;
+      margin: -119px 0 0 -119px;
+    }
+    header .solar-system .mars {
+      width: 11px;
+      height: 11px;
+      background: radial-gradient(circle at 30% 30%, #fda4af, #dc2626);
+      box-shadow: 0 0 9px rgba(248, 113, 113, 0.55);
+    }
+
+    @keyframes orbitSpin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    header .solar-system .stars {
+      position: absolute;
+      inset: 0;
+    }
+    header .solar-system .star {
+      position: absolute;
+      width: 3.5px;
+      height: 3.5px;
+      border-radius: 50%;
+      background: #ffffff;
+      box-shadow: 0 0 7px rgba(255, 255, 255, 0.9);
+      animation: starTwinkle 2.4s ease-in-out infinite alternate;
+    }
+    header .solar-system .star-1 { top: 14%; left: 18%; animation-delay: 0s; }
+    header .solar-system .star-2 { top: 24%; right: 16%; animation-delay: 0.5s; }
+    header .solar-system .star-3 { bottom: 20%; left: 22%; animation-delay: 1s; }
+    header .solar-system .star-4 { bottom: 16%; right: 24%; animation-delay: 1.4s; }
+    header .solar-system .star-5 { top: 52%; left: 10%; animation-delay: 1.9s; }
+
+    @keyframes starTwinkle {
+      0% { opacity: 0.25; transform: scale(0.8); }
+      100% { opacity: 1; transform: scale(1.35); }
+    }
+
+    @media (max-width: 720px) {
+      header .solar-system {
+        width: 310px;
+        height: 310px;
+        right: -12px;
+        top: 56%;
+        transform: translate(0, -50%) scale(calc(1.48 + var(--pull-expand) * 0.30));
+      }
+      header .solar-system .sun { width: 36px; height: 36px; margin: -18px 0 0 -18px; }
+      header .solar-system .mercury-orbit { width: 68px; height: 68px; margin: -34px 0 0 -34px; }
+      header .solar-system .venus-orbit { width: 102px; height: 102px; margin: -51px 0 0 -51px; }
+      header .solar-system .earth-orbit { width: 144px; height: 144px; margin: -72px 0 0 -72px; }
+      header .solar-system .mars-orbit { width: 188px; height: 188px; margin: -94px 0 0 -94px; }
+    }
+  </style>
+</head>
+<body>
+  <!-- AÇILIŞ YÜKLEME EKRANI -->
+  <div class="preloader-overlay" id="preloader" aria-label="Yükleniyor">
+    <div class="wrapper">
+      <div class="circle"></div>
+      <div class="circle"></div>
+      <div class="circle"></div>
+      <div class="shadow"></div>
+      <div class="shadow"></div>
+      <div class="shadow"></div>
+    </div>
+  </div>
+
+  <div class="welcome-splash" id="welcomeSplash" aria-hidden="true">
+    <!-- From Uiverse.io by elijahgummer -->
+    <div class="hole">
+      <i></i>
+      <i></i>
+      <i></i>
+      <i></i>
+      <i></i>
+      <i></i>
+      <i></i>
+      <i></i>
+      <i></i>
+      <i></i>
+    </div>
+  </div>
+
+  <div class="ambient-orb" aria-hidden="true"></div>
+  <div class="app-layer">
+    <header>
+      <div class="header-top">
+        <div class="brand-group">
+          <div class="brand-icon-badge" id="headerIcon"><svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <rect width="512" height="512" rx="95" fill="#000"/>
+              <text x="78" y="380" font-family="Arial Black, sans-serif" font-size="365" font-weight="900" fill="white">R</text>
+              <path d="M174 225 L316 165 L253 286 L239 243 Z" fill="#000"/>
+              <path d="M174 225 L316 165 L253 286 L239 243 Z" fill="white"/>
+              <path d="M75 510 C25 425 105 356 190 320 C235 300 250 270 253 245" fill="none" stroke="white" stroke-width="22" stroke-linecap="round"/>
+              <path d="M125 510 C75 420 150 365 207 332" fill="none" stroke="black" stroke-width="8" stroke-dasharray="24 22"/>
+              <path d="M405 58 C362 58 342 91 342 124 C342 162 405 215 405 215 C405 215 468 162 468 124 C468 91 448 58 405 58Z" fill="white"/>
+              <circle cx="405" cy="122" r="25" fill="black"/>
+              <ellipse cx="405" cy="225" rx="44" ry="13" fill="none" stroke="white" stroke-width="9"/>
+              <path d="M405 239 C450 265 450 293 408 318" fill="none" stroke="white" stroke-width="8" stroke-linecap="round"/>
+            </svg></div>
+          <div class="brand" id="brandText">REFİK WEBMAP</div>
+        </div>
+
+        <div class="header-controls">
+          <label class="switch" title="Gece / Gündüz Modu" aria-label="Gece ve gündüz modunu değiştir">
+            <span class="sun"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g fill="#ffd43b"><circle r="5" cy="12" cx="12"></circle><path d="m21 13h-1a1 1 0 0 1 0-2h1a1 1 0 0 1 0 2zm-17 0h-1a1 1 0 0 1 0-2h1a1 1 0 0 1 0 2zm13.66-5.66a1 1 0 0 1 -.66-.29 1 1 0 0 1 0-1.41l.71-.71a1 1 0 1 1 1.41 1.41l-.71.71a1 1 0 0 1 -.75.29zm-12.02 12.02a1 1 0 0 1 -.71-.29 1 1 0 0 1 0-1.41l.71-.66a1 1 0 0 1 1.41 1.41l-.71.71a1 1 0 0 1 -.7.24zm6.36-14.36a1 1 0 0 1 -1-1v-1a1 1 0 0 1 2 0v1a1 1 0 0 1 -1 1zm0 17a1 1 0 0 1 -1-1v-1a1 1 0 0 1 2 0v1a1 1 0 0 1 -1 1zm-5.66-14.66a1 1 0 0 1 -.7-.29l-.71-.71a1 1 0 0 1 1.41-1.41l.71.71a1 1 0 0 1 0 1.41 1 1 0 0 1 -.71.29zm12.02 12.02a1 1 0 0 1 -.7-.29l-.66-.71a1 1 0 0 1 1.36-1.36l.71.71a1 1 0 0 1 0 1.41 1 1 0 0 1 -.71.24z"></path></g></svg></span>
+            <span class="moon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path d="m223.5 32c-123.5 0-223.5 100.3-223.5 224s100 224 223.5 224c60.6 0 115.5-24.2 155.8-63.4 5-4.9 6.3-12.5 3.1-18.7s-10.1-9.7-17-8.5c-9.8 1.7-19.8 2.6-30.1 2.6-96.9 0-175.5-78.8-175.5-176 0-65.8 36-123.1 89.3-153.3 6.1-3.5 9.2-10.5 7.7-17.3s-7.3-11.9-14.3-12.5c-6.3-.5-12.6-.8-19-.8z"></path></svg></span>
+            <input type="checkbox" class="input" id="themeSwitchInput">
+            <span class="slider"></span>
+          </label>
+
+          <button class="hamburger-btn" id="mainMenuToggle" type="button" title="Menü" aria-label="Menüyü aç">
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+        </div>
+      </div>
+
+      <!-- From Uiverse.io by KSAplay -->
+      <div class="loader" id="headerMedia" aria-label="R E F İ K">R E F İ K</div>
+      <h1 id="pageTitle">FİLE Market Şube Rehberi</h1>
+      <p id="pageSubtitle">İstanbul Avrupa Yakası mağaza arama ve yönlendirme rehberi</p>
+      <div class="announcement-bar" id="announcementBar"></div>
+<!-- From Uiverse.io by 00Kubi -->
+    <div class="solar-system" aria-hidden="true">
+      <div class="sun">
+        <div class="corona"></div>
+      </div>
+
+      <div class="orbit mercury-orbit">
+        <div class="planet mercury"></div>
+      </div>
+
+      <div class="orbit venus-orbit">
+        <div class="planet venus"></div>
+      </div>
+
+      <div class="orbit earth-orbit">
+        <div class="planet earth">
+          <div class="moon"></div>
+        </div>
+
+        <div class="iss">
+          <div class="iss-panels"></div>
+        </div>
+      </div>
+
+      <div class="orbit mars-orbit">
+        <div class="planet mars"></div>
+      </div>
+
+      <div class="stars">
+        <div class="star star-1"></div>
+        <div class="star star-2"></div>
+        <div class="star star-3"></div>
+        <div class="star star-4"></div>
+        <div class="star star-5"></div>
+      </div>
+    </div>
+    </header>
+
+    <!-- GİRİŞ / HESAP AÇMA / KURTARMA EKRANI -->
+    <section class="auth-shell" id="authScreen">
+      <div class="auth-badge" id="loginModeBadge">KULLANICI GİRİŞİ</div>
+      <h2 id="loginHeading">Hesabınıza Giriş Yapın</h2>
+      <p class="auth-sub" id="loginSub">Kullanıcı adı, şifre ve kurtarma e-postası ile hesap açıp giriş yapın. Çıkış yapmadığınız sürece uygulama sizi hatırlar.</p>
+
+      <div class="msg-box" id="authMsg"></div>
+
+      <form id="loginForm">
+        <div class="field">
+          <label for="loginUser">Kullanıcı Adı</label>
+          <input id="loginUser" autocomplete="username" placeholder="Kullanıcı adınızı girin" required>
+        </div>
+        <div class="field">
+          <label for="loginPass">Şifre</label>
+          <input id="loginPass" type="password" autocomplete="current-password" placeholder="Şifrenizi girin" required>
+        </div>
+        <div class="auth-actions">
+          <button class="link-btn" type="button" id="openRegisterBtn">Hesap Aç</button>
+          <button class="link-btn" type="button" id="forgotPassBtn">Şifremi unuttum</button>
+        </div>
+        <p style="margin-top:16px;margin-bottom:0">
+          <button class="primary" style="width:100%" type="submit" id="loginSubmitBtn">Giriş Yap</button>
+        </p>
+        <button class="admin-login-under-btn" type="button" id="toggleLoginRoleBtn">Yönetici Giriş Yap</button>
+      </form>
+
+      <form id="registerForm" hidden>
+        <p class="auth-sub" style="margin-bottom:12px">
+          Yeni kullanıcı hesabı açmak için kullanıcı adı, şifre ve kurtarma e-posta bilgilerinizi girin.
+        </p>
+        <div class="field">
+          <label for="regUsername">Kullanıcı Adı</label>
+          <input id="regUsername" placeholder="örn. ahmet_saha" required>
+        </div>
+        <div class="field">
+          <label for="regPass">Şifre</label>
+          <input id="regPass" type="password" placeholder="En az 4 karakter şifre" required>
+        </div>
+        <div class="field">
+          <label for="regEmail">Kurtarma E-posta Adresi</label>
+          <input id="regEmail" type="email" placeholder="ornek@gmail.com" required>
+        </div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px">
+          <button class="primary" style="flex:1" type="submit">Hesap Aç ve Giriş Yap</button>
+          <button class="plain" type="button" id="backFromRegBtn">Girişe Dön</button>
+        </div>
+      </form>
+
+      <form id="resetForm" hidden>
+        <p class="auth-sub" style="margin-bottom:12px">
+          Kayıtlı kullanıcı adınız, kurtarma e-posta adresiniz ve yeni şifrenizle şifrenizi sıfırlayın.
+        </p>
+        <div class="field">
+          <label for="resetUser">Kullanıcı Adı</label>
+          <input id="resetUser" placeholder="Kullanıcı adınız">
+        </div>
+        <div class="field">
+          <label for="resetEmail">Kurtarma E-posta Adresi</label>
+          <input id="resetEmail" type="email" placeholder="kurtarma@eposta.com" required>
+        </div>
+        <div class="field">
+          <label for="resetNewPass">Yeni Şifre</label>
+          <input id="resetNewPass" type="password" placeholder="Yeni şifrenizi girin" required>
+        </div>
+        <div id="codeStepBox" hidden>
+          <div class="field">
+            <label for="resetCodeInput">Doğrulama Kodu</label>
+            <input id="resetCodeInput" placeholder="6 haneli kodu girin">
+          </div>
+        </div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px">
+          <button class="primary" type="button" id="sendResetCodeBtn">Kod Oluştur</button>
+          <button class="primary" type="submit" id="confirmResetBtn" hidden>Şifreyi Güncelle</button>
+          <button class="plain" type="button" id="backToLoginBtn">Girişe Dön</button>
+        </div>
+      </form>
+    </section>
+
+    <!-- GİRİŞ SONRASI ANA ÇALIŞMA ALANI (KULLANICI VE YÖNETİCİ AYNI ŞEKİLDE KULLANIR) -->
+    <main class="wrap" id="mainWorkspace" hidden>
+
+
+      <div class="toolbar" style="margin-bottom:10px;align-items:center;justify-content:space-between">
+        <div id="liveUsersBar" style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:13px;color:var(--muted)"></div>
+        <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+          <button class="plain" type="button" id="refreshSyncBtn" title="Güncel verileri senkronize et">↻ Senkronize Et</button>
+          <a class="plain" id="openInBrowserBtn" href="#" target="_blank" rel="noopener" style="display:none">↗ Harici Tarayıcıda Aç</a>
+        </div>
+      </div>
+      <div class="toolbar">
+        <input id="search" placeholder="Mağaza adı, F kodu veya telefon ara..." aria-label="Mağaza ara">
+      </div>
+      <div class="count" id="count"></div>
+      <section class="cards" id="cards"></section>
+
+      <small class="note">
+        Harita bağlantıları ilgili mağaza adını haritada aratır; otomatik navigasyon başlatmaz. Adresler henüz tek tek doğrulanmadığı için sonuçları harita üzerinde kontrol edin.
+      </small>
+    </main>
+  </div>
+
+  <!-- SAĞ ÜST 3 ÇİZGİ (☰) MENÜ ÇEKMECESİ -->
+  <div class="drawer-backdrop" id="drawerBackdrop"></div>
+  <aside class="admin-drawer" id="menuDrawer" aria-hidden="true">
+    <div class="drawer-header">
+      <div>
+        <h2 style="margin:0;font-size:19px" id="drawerTitle">Menü</h2>
+        <p style="margin:2px 0 0;color:var(--muted);font-size:12.5px" id="drawerSubtitle">
+          Hesabım ve uygulama seçenekleri
+        </p>
+      </div>
+      <button class="plain" id="closeDrawerBtn" type="button" aria-label="Menüyü kapat">✕ Kapat</button>
+    </div>
+
+    <div class="drawer-body">
+      <!-- STANDART KULLANICI HESABIM BÖLÜMÜ (ÇIKIŞ YAP & ŞİFRE GİREREK HESAP SİL) -->
+      <div class="account-box" id="userAccountSection">
+        <h3>Hesabım</h3>
+        <div class="account-meta" id="accountInfoText">Henüz oturum açılmadı.</div>
+
+        <div class="msg-box" id="accountMsg"></div>
+
+        <div class="account-actions" id="accountActionButtons" hidden>
+          <button class="plain" type="button" id="drawerLogoutBtn">Çıkış Yap</button>
+          <button class="danger-btn" type="button" id="openDeleteAccountBtn">Hesabı Sil</button>
+        </div>
+
+        <form class="delete-confirm-panel" id="deleteAccountForm" hidden>
+          <p style="margin:0 0 10px;font-size:13px;font-weight:600;color:var(--danger)">
+            Hesabınızı kalıcı olarak silmek için mevcut şifrenizi girin:
+          </p>
+          <div class="field" style="margin-bottom:10px">
+            <label for="deleteAccountPass">Mevcut Şifreniz</label>
+            <input id="deleteAccountPass" type="password" placeholder="Şifrenizi girin" required>
+          </div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap">
+            <button class="danger-btn" type="submit">Şifreyi Onayla ve Hesabı Sil</button>
+            <button class="plain" type="button" id="cancelDeleteAccountBtn">İptal</button>
+          </div>
+        </form>
+      </div>
+
+      <!-- YÖNETİCİ OTURUM BLOĞU (HESAP SİLME YOK; SADECE YÖNETİCİ BİLGİSİ & ÇIKIŞ) -->
+      <div class="account-box" id="adminSessionBox" hidden>
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap">
+          <div>
+            <h3 style="margin:0 0 4px">Yönetici Oturumu · <span id="adminSessionName">Refiko</span></h3>
+            <div class="account-meta" style="margin:0">Tek yönetici hesabı (hesap silme kapalıdır). Tüm arayüz, mağaza ve kullanıcı kontrolleri aşağıdadır.</div>
+          </div>
+          <button class="plain" type="button" id="adminLogoutBtn">Çıkış Yap</button>
+        </div>
+      </div>
+
+      <!-- YÖNETİCİ DÜZENLEME / KONTROL ALANI (YALNIZCA YÖNETİCİ GİRİŞİNDE GÖRÜNÜR) -->
+      <div id="adminOnlySections" hidden>
+        <div class="tabs" role="tablist">
+          <button class="plain tab-btn active" data-tab="tabEditAll" type="button">Arayüz & Her Ayrıntı (Edit)</button>
+          <button class="plain tab-btn" data-tab="tabUsers" type="button">Kullanıcı Durum & İzinleri</button>
+          <button class="plain tab-btn" data-tab="tabStores" type="button">Mağaza Düzenleme</button>
+          <button class="plain tab-btn" data-tab="tabAdminSec" type="button">Yönetici & Canlı Senkron</button>
+        </div>
+
+        <!-- 1. SEKME: TÜM ARAYÜZ, RENKLER, GIF/BAŞLIK, KARTLAR VE EKLENTİLER (EDIT) -->
+        <div class="tab-pane" id="tabEditAll">
+          <h3>Tüm Arayüz ve Her Ayrıntıyı Düzenle</h3>
+          <form id="appearanceForm">
+            <div class="formgrid">
+              <div class="field">
+                <label for="cfgBrand">Üst Marka Yazısı</label>
+                <input id="cfgBrand">
+              </div>
+              <div class="field">
+                <label for="cfgIcon">Üst İkon / Emoji</label>
+                <input id="cfgIcon" placeholder="örn. 🗺️ veya 🚀">
+              </div>
+              <div class="field">
+                <label for="cfgTitle">Ana Başlık</label>
+                <input id="cfgTitle">
+              </div>
+              <div class="field">
+                <label for="cfgMotionSpeed">Motion Animasyon Hızı</label>
+                <select id="cfgMotionSpeed">
+                  <option value="0.25s">Hızlı (0.25s)</option>
+                  <option value="0.45s">Dengeli (0.45s)</option>
+                  <option value="0.8s">Yumuşak / Ağır (0.8s)</option>
+                </select>
+              </div>
+              <div class="field wide">
+                <label for="cfgSubtitle">Alt Açıklama</label>
+                <input id="cfgSubtitle">
+              </div>
+              <div class="field wide">
+                <label for="cfgMediaUrl">Üst GIF veya Resim URL'si</label>
+                <input id="cfgMediaUrl" placeholder="https://.../animasyon.gif veya .png/.jpg">
+              </div>
+              <div class="field wide">
+                <label for="cfgAnnouncement">Üst Duyuru / Eklenti Metni</label>
+                <input id="cfgAnnouncement" placeholder="Kullanıcılara gösterilecek güncel duyuru">
+              </div>
+              <div class="field wide">
+                <label for="cfgFooterNote">Alt Bilgilendirme Metni</label>
+                <input id="cfgFooterNote">
+              </div>
+              <div class="field">
+                <label for="cfgPhonePrefix">1. Telefon Ön Eki (Üst Seçenek)</label>
+                <input id="cfgPhonePrefix" placeholder="08502539">
+              </div>
+              <div class="field">
+                <label for="cfgPhonePrefix2">2. Telefon Ön Eki (Alt Seçenek)</label>
+                <input id="cfgPhonePrefix2" placeholder="08502549">
+              </div>
+              <div class="field">
+                <label for="cfgDefaultAddressText">Boş Adres Etiketi</label>
+                <input id="cfgDefaultAddressText" placeholder="Adres bilgisi henüz doğrulanmadı">
+              </div>
+
+              <div class="field">
+                <label for="colAccent">Vurgu Rengi (Buton & Rozet)</label>
+                <input id="colAccent" type="color">
+              </div>
+              <div class="field">
+                <label for="colAccent2">İkincil Vurgu Rengi</label>
+                <input id="colAccent2" type="color">
+              </div>
+              <div class="field">
+                <label for="colNavy">Üst Banner Ana Rengi</label>
+                <input id="colNavy" type="color">
+              </div>
+              <div class="field">
+                <label for="colNavy2">Üst Banner Gradyan Rengi</label>
+                <input id="colNavy2" type="color">
+              </div>
+              <div class="field">
+                <label for="colBg">Sayfa Arka Plan Rengi</label>
+                <input id="colBg" type="color">
+              </div>
+              <div class="field">
+                <label for="colSurface">Kart & Panel Yüzey Rengi</label>
+                <input id="colSurface" type="color">
+              </div>
+              <div class="field">
+                <label for="colText">Ana Yazı Rengi</label>
+                <input id="colText" type="color">
+              </div>
+              <div class="field">
+                <label for="colMuted">İkincil / Açıklama Yazı Rengi</label>
+                <input id="colMuted" type="color">
+              </div>
+            </div>
+
+            <div style="margin-top:10px">
+              <div class="check-row">
+                <input type="checkbox" id="plugAnnouncement">
+                <label for="plugAnnouncement" style="margin:0">Eklenti: Duyuru Bandını Göster</label>
+              </div>
+              <div class="check-row">
+                <input type="checkbox" id="plugCounter">
+                <label for="plugCounter" style="margin:0">Eklenti: Canlı Filtre & Mağaza Sayacını Göster</label>
+              </div>
+              <div class="check-row">
+                <input type="checkbox" id="plugMaps">
+                <label for="plugMaps" style="margin:0">Eklenti: Google ve Yandex Harita Butonlarını Göster</label>
+              </div>
+              <div class="check-row">
+                <input type="checkbox" id="plugCall">
+                <label for="plugCall" style="margin:0">Eklenti: Hızlı Arama Butonunu Göster</label>
+              </div>
+            </div>
+
+            <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:14px">
+              <button class="primary" type="submit">Onayla ve Tüm Ayarları Kaydet</button>
+              <button class="plain" type="button" id="resetColorsBtn">Varsayılan Renklere Dön</button>
+            </div>
+          </form>
+        </div>
+
+        <!-- 2. SEKME: KULLANICI DURUMLARI (AKTİF / PASİF / ENGEL / KISITLAMA) -->
+        <div class="tab-pane" id="tabUsers" hidden>
+          <h3>Kullanıcı Aktiflik & Erişim Analizi</h3>
+          <div class="kpi-grid" id="userAnalyticsGrid"></div>
+
+          <div class="msg-box ok" style="display:block;margin-bottom:14px">
+            Tek yönetici hesabınız sabittir; buradan yeni yönetici hesabı açılmaz. Kullanıcıların durumunu isim isim Aktif / Pasif yapabilir, kısıtlama / engel koyabilir veya hesaplarını silebilirsiniz.
+          </div>
+
+          <h3>Kayıtlı Kullanıcılar (İsim İsim Durum, Kısıtlama & Engel)</h3>
+          <div class="list-box" id="userListBox"></div>
+
+          <form id="userPermForm" hidden style="margin-top:16px;padding-top:14px;border-top:1px solid var(--line)">
+            <h4 style="margin:0 0 10px">Seçili Kullanıcının Durum, Kısıtlama & İzin Ayarı</h4>
+            <div class="formgrid">
+              <div class="field">
+                <label for="uEditUsername">Kullanıcı Adı</label>
+                <input id="uEditUsername" readonly>
+              </div>
+              <div class="field">
+                <label for="uEditEmail">Kurtarma E-posta Adresi</label>
+                <input id="uEditEmail" type="email" placeholder="kullanici@eposta.com">
+              </div>
+              <div class="field">
+                <label for="uEditStatus">Hesap Durumu</label>
+                <select id="uEditStatus">
+                  <option value="active">Aktif (Giriş Açık)</option>
+                  <option value="passive">Pasif (Giriş Kapalı)</option>
+                  <option value="blocked">Engelli (Erişim Engeli)</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="uEditPermission">Kısıtlama / İzin Seviyesi</label>
+                <select id="uEditPermission">
+                  <option value="full">Tam İzin (Arama + Harita + Ara)</option>
+                  <option value="search_only">Kısıtlı — Yalnızca Arama (Harita & Ara Kapalı)</option>
+                  <option value="readonly">Kısıtlı Görüntüleme</option>
+                </select>
+              </div>
+            </div>
+            <div style="display:flex;gap:8px;flex-wrap:wrap">
+              <button class="primary" type="submit">Onayla ve İzinleri Kaydet</button>
+              <button class="plain" type="button" id="uEditCancelBtn">Vazgeç</button>
+            </div>
+          </form>
+        </div>
+
+        <!-- 3. SEKME: MAĞAZA YÖNETİMİ -->
+        <div class="tab-pane" id="tabStores" hidden>
+          <h3>Mağaza Ekle / Düzenle</h3>
+          <form id="storeForm">
+            <div class="formgrid">
+              <div class="field" style="margin-bottom:0">
+                <label for="code">Mağaza Kodu</label>
+                <input id="code" placeholder="örn. F127" required>
+              </div>
+              <div class="field" style="margin-bottom:0">
+                <label for="name">Mağaza Adı</label>
+                <input id="name" placeholder="örn. İstwest" required>
+              </div>
+              <div class="field wide" style="margin-bottom:0">
+                <label for="location">Mağaza Koordinatı (Enlem, Boylam)</label>
+                <input id="location" placeholder="örn. 40.974601,28.662735">
+                <div id="coordPreview" style="font-size:12px;color:var(--accent);margin-top:5px;min-height:18px"></div>
+              </div>
+              <div class="field wide" style="margin-bottom:0">
+                <label for="address">Doğrulanmış Açık Adres (isteğe bağlı)</label>
+                <input id="address" placeholder="Açık adres bilgisini buraya yazabilirsiniz">
+              </div>
+            </div>
+            <p style="display:flex;gap:8px;flex-wrap:wrap">
+              <button class="primary" type="submit">Onayla ve Mağazayı Kaydet</button>
+              <button class="plain" type="button" id="cancel">Temizle</button>
+            </p>
+          </form>
+
+          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px">
+            <button class="plain" id="export" type="button">JSON Yedeği İndir</button>
+            <label class="plain" for="importFile">Yedek İçe Aktar</label>
+            <input id="importFile" type="file" accept="application/json" hidden>
+            <button class="danger-btn" id="resetStoresDefault" type="button">Varsayılan 78 Mağazaya Dön</button>
+          </div>
+
+          <div class="list-box" id="adminList"></div>
+        </div>
+
+        <!-- 4. SEKME: TEK YÖNETİCİ KİMLİĞİ & CANLI SENKRON -->
+        <div class="tab-pane" id="tabAdminSec" hidden>
+          <h3>Tek Yönetici Kimlik & Kurtarma Bilgileri (Hesap Silinemez)</h3>
+          <form id="adminSecForm">
+            <div class="formgrid">
+              <div class="field">
+                <label for="secAdminUser">Yönetici Kullanıcı Adı</label>
+                <input id="secAdminUser" required>
+              </div>
+              <div class="field">
+                <label for="secAdminEmail">Şifre Sıfırlama E-posta Adresi</label>
+                <input id="secAdminEmail" type="email" required>
+              </div>
+              <div class="field wide">
+                <label for="secAdminPass">Yeni Yönetici Şifresi</label>
+                <input id="secAdminPass" type="text" required>
+              </div>
+            </div>
+            <button class="primary" type="submit">Onayla ve Yönetici Bilgilerini Güncelle</button>
+          </form>
+
+          <h3 style="margin-top:24px">Karşıya Güncel Veri Aktarımı (Canlı Senkron Endpoint)</h3>
+          <p style="font-size:13px;color:var(--muted);margin-top:0">
+            Aynı cihaz/tarayıcı sekmelerinde <b>BroadcastChannel</b> ve <b>storage</b> olayları anlık çalışır. Farklı cihazlara/sunucuya otomatik <code>POST</code> ile göndermek isterseniz bir Webhook/API URL tanımlayabilirsiniz.
+          </p>
+          <div class="formgrid">
+            <div class="field">
+              <label for="syncEndpointUrl">Canlı Senkron Webhook / API URL (isteğe bağlı)</label>
+              <input id="syncEndpointUrl" placeholder="https://.../api/refik-webmap">
+            </div>
+            <div class="field">
+              <label for="syncChannelName">Kanal / Oda Adı</label>
+              <input id="syncChannelName" placeholder="refik_webmap_live_v1">
+            </div>
+          </div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap">
+            <button class="primary" type="button" id="saveSyncSettingsBtn">Canlı Senkron Ayarını Kaydet</button>
+            <button class="plain" type="button" id="pushNowBtn">Şimdi Karşıya Gönder / Yenile</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <div class="call-picker-backdrop" id="callPickerModal" role="dialog" aria-modal="true" aria-labelledby="callPickerTitle">
+    <div class="call-picker-card">
+      <h3 id="callPickerTitle">Mağazayı Ara</h3>
+      <p class="call-picker-sub" id="callPickerStoreInfo">Aramak istediğiniz hattı seçin</p>
+      <div class="call-choice-list">
+        <a class="call-choice-btn" id="callOptionPrimary" href="#">
+          <span class="call-choice-tag">1. Hat Seçeneği</span>
+          <span class="call-choice-num" id="callOptionPrimaryNum"></span>
+        </a>
+        <a class="call-choice-btn" id="callOptionSecondary" href="#">
+          <span class="call-choice-tag">2. Hat Seçeneği</span>
+          <span class="call-choice-num" id="callOptionSecondaryNum"></span>
+        </a>
+      </div>
+      <button class="plain call-cancel-btn" type="button" id="callPickerCloseBtn">Vazgeç</button>
+    </div>
+  </div>
+
+  <div class="confirm-backdrop" id="confirmModal" role="dialog" aria-modal="true" aria-labelledby="confirmTitle">
+    <div class="confirm-card">
+      <h3 id="confirmTitle">İşlem Onayı</h3>
+      <p id="confirmMessage">Bu işlemi gerçekleştirmek istediğinize emin misiniz?</p>
+      <div class="confirm-actions">
+        <button class="plain" type="button" id="confirmCancelBtn">İptal</button>
+        <button class="primary" type="button" id="confirmOkBtn">Onayla</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const INITIAL_STORES = [
+      {"code": "F134", "name": "3. İstanbul", "address": ""}, {"code": "F013", "name": "5. Etap", "address": ""},
+      {"code": "F231", "name": "Acarlar", "address": ""}, {"code": "F029", "name": "Ahenk", "address": ""},
+      {"code": "F283", "name": "Ahmet Yesevi Sokak", "address": ""}, {"code": "F130", "name": "Akçaburgaz", "address": ""},
+      {"code": "F006", "name": "Alibeyköy", "address": ""}, {"code": "F095", "name": "Altıntepsi", "address": ""},
+      {"code": "F115", "name": "Ardıçlı", "address": ""}, {"code": "F125", "name": "Atakent", "address": ""},
+      {"code": "F079", "name": "Avlu AVM", "address": ""}, {"code": "F003", "name": "Avrupa Konutları", "address": ""},
+      {"code": "F186", "name": "Axis", "address": ""}, {"code": "F090", "name": "Azur Marmara", "address": ""},
+      {"code": "F085", "name": "Banu Evleri", "address": ""}, {"code": "F049", "name": "Barış Mahallesi", "address": ""},
+      {"code": "F172", "name": "Başdere", "address": ""}, {"code": "F019", "name": "Beyhill", "address": ""},
+      {"code": "F002", "name": "Bizimevler", "address": ""}, {"code": "F168", "name": "Brand", "address": ""},
+      {"code": "F018", "name": "Bulvar", "address": ""}, {"code": "F142", "name": "Butik", "address": ""},
+      {"code": "F190", "name": "Cami Sokak", "address": ""}, {"code": "F161", "name": "Core Living", "address": ""},
+      {"code": "F027", "name": "Doğan Araslı", "address": ""}, {"code": "F103", "name": "Doğanbey", "address": ""},
+      {"code": "F250", "name": "Eroğlu", "address": ""}, {"code": "F052", "name": "Eyüp Park", "address": ""},
+      {"code": "F067", "name": "Flora", "address": ""}, {"code": "F008", "name": "Fly Garden", "address": ""},
+      {"code": "F133", "name": "Göktürk", "address": ""}, {"code": "F048", "name": "Göl Panorama", "address": ""},
+      {"code": "F113", "name": "Göl Plus", "address": ""}, {"code": "F015", "name": "Göztepe", "address": ""},
+      {"code": "F159", "name": "Gürpınar", "address": ""}, {"code": "F088", "name": "Halkalı", "address": ""},
+      {"code": "F317", "name": "Hanımeli", "address": ""}, {"code": "F037", "name": "Hat Boyu", "address": ""},
+      {"code": "F230", "name": "Ihlamur", "address": ""}, {"code": "F127", "name": "İstwest", "address": ""},
+      {"code": "F191", "name": "Kavaklı", "address": ""}, {"code": "F212", "name": "Kiptaş", "address": ""},
+      {"code": "F158", "name": "Koza", "address": ""}, {"code": "F031", "name": "Küba", "address": ""},
+      {"code": "F208", "name": "Küçükköy", "address": ""}, {"code": "F086", "name": "Liv Marmara", "address": ""},
+      {"code": "F057", "name": "Mabeyn", "address": ""}, {"code": "F033", "name": "Maden", "address": ""},
+      {"code": "F328", "name": "Marina", "address": ""}, {"code": "F007", "name": "Mavera", "address": ""},
+      {"code": "F017", "name": "Metropark", "address": ""}, {"code": "F128", "name": "N.Logo", "address": ""},
+      {"code": "F004", "name": "Ntown", "address": ""}, {"code": "F329", "name": "Okul", "address": ""},
+      {"code": "F348", "name": "OSB", "address": ""}, {"code": "F066", "name": "Palmiye Park", "address": ""},
+      {"code": "F054", "name": "Park Mavera", "address": ""}, {"code": "F012", "name": "Park Teras", "address": ""},
+      {"code": "F107", "name": "Parkway", "address": ""}, {"code": "F144", "name": "Piri Reis", "address": ""},
+      {"code": "F123", "name": "Premium", "address": ""}, {"code": "F251", "name": "Referans", "address": ""},
+      {"code": "F225", "name": "Reform Life", "address": ""}, {"code": "F114", "name": "Reşitpaşa", "address": ""},
+      {"code": "F021", "name": "Sarıgöl", "address": ""}, {"code": "F316", "name": "Sefaköy Dark Store", "address": ""},
+      {"code": "F091", "name": "Strada", "address": ""}, {"code": "F369", "name": "Tavukçu", "address": ""},
+      {"code": "F025", "name": "Uğur Mumcu", "address": ""}, {"code": "F047", "name": "Vaditepe", "address": ""},
+      {"code": "F141", "name": "Veysel Karani", "address": ""}, {"code": "F129", "name": "Vira", "address": ""},
+      {"code": "F041", "name": "Yakuplu", "address": ""}, {"code": "F011", "name": "Yavuz Sultan Selim", "address": ""},
+      {"code": "F234", "name": "Yeşilpınar", "address": ""}, {"code": "F258", "name": "Yuvam Başakşehir", "address": ""},
+      {"code": "F058", "name": "Zekeriyaköy", "address": ""}, {"code": "F100", "name": "Zigana", "address": ""}
+    ];
+
+    const KEYS = {
+      stores: "refik_webmap_v9_stores",
+      users: "refik_webmap_v9_users",
+      admin: "refik_webmap_v9_admin",
+      config: "refik_webmap_v9_config",
+      sync: "refik_webmap_v9_sync",
+      theme: "refik_webmap_v9_theme",
+      session: "refik_webmap_v9_session"
+    };
+
+    const SINGLE_ADMIN = {
+      username: "Refiko",
+      password: "Refik.11414430",
+      email: "refiokk@gmail.com"
+    };
+
+    const DEFAULT_COLORS = {
+      accent: "#0f766e",
+      accent2: "#0284c7",
+      navy: "#0f233b",
+      navy2: "#1c3d63",
+      bg: "#eef2f6",
+      surface: "#ffffff",
+      text: "#0f172a",
+      muted: "#5b6b7d"
+    };
+
+    const DEFAULT_CONFIG = {
+      brand: "REFİK WEBMAP",
+      icon: "🗺️",
+      title: "FİLE Market Şube Rehberi",
+      subtitle: "İstanbul Avrupa Yakası mağaza arama ve yönlendirme rehberi",
+      mediaUrl: "",
+      announcement: "Güncel şube rehberi aktif olarak hizmet vermektedir.",
+      footerNote: "Harita bağlantıları ilgili mağaza adını haritada aratır; otomatik navigasyon başlatmaz. Adresler henüz tek tek doğrulanmadığı için sonuçları harita üzerinde kontrol edin.",
+      phonePrefix: "08502539",
+      phonePrefix2: "08502549",
+      defaultAddressText: "Adres bilgisi henüz doğrulanmadı",
+      motionSpeed: "0.45s",
+      colors: { ...DEFAULT_COLORS },
+      plugins: {
+        announcement: false,
+        counter: true,
+        maps: true,
+        call: true
+      }
+    };
+
+    const DEFAULT_SYNC = {
+      endpointUrl: "",
+      channelName: "refik_webmap_live_v1",
+      updatedAt: ""
+    };
+
+    const $ = id => document.getElementById(id);
+
+    function showPreloader(durationMs = 800) {
+      const el = $("preloader");
+      el.classList.remove("hidden");
+      clearTimeout(window.__preloaderTimer);
+      window.__preloaderTimer = setTimeout(() => {
+        el.classList.add("hidden");
+      }, durationMs);
+    }
+
+    function loadJson(key, fallback) {
+      try {
+        const raw = localStorage.getItem(key);
+        return raw ? JSON.parse(raw) : structuredClone(fallback);
+      } catch {
+        return structuredClone(fallback);
+      }
+    }
+
+    let stores = loadJson(KEYS.stores, INITIAL_STORES);
+    let users = loadJson(KEYS.users, []);
+    let adminCreds = { ...SINGLE_ADMIN, ...loadJson(KEYS.admin, SINGLE_ADMIN) };
+    let rawCfg = loadJson(KEYS.config, DEFAULT_CONFIG);
+    let config = {
+      ...DEFAULT_CONFIG,
+      ...rawCfg,
+      colors: { ...DEFAULT_COLORS, ...(rawCfg.colors || {}) },
+      plugins: { ...DEFAULT_CONFIG.plugins, ...(rawCfg.plugins || {}) }
+    };
+    let syncCfg = { ...DEFAULT_SYNC, ...loadJson(KEYS.sync, DEFAULT_SYNC) };
+    let session = loadJson(KEYS.session, null);
+
+    let loginTargetRole = "user";
+    let pendingResetCode = null;
+    let bc = null;
+    let pendingConfirmCallback = null;
+
+    function requestApproval(title, message, onApproved) {
+      $("confirmTitle").textContent = title;
+      $("confirmMessage").textContent = message;
+      pendingConfirmCallback = onApproved;
+      $("confirmModal").classList.add("open");
+    }
+
+    $("confirmCancelBtn").addEventListener("click", () => {
+      pendingConfirmCallback = null;
+      $("confirmModal").classList.remove("open");
+    });
+
+    $("confirmOkBtn").addEventListener("click", () => {
+      const cb = pendingConfirmCallback;
+      pendingConfirmCallback = null;
+      $("confirmModal").classList.remove("open");
+      if (typeof cb === "function") cb();
+    });
+
+    function initBroadcastChannel() {
+      if (typeof BroadcastChannel === "undefined") return;
+      if (bc) bc.close();
+      bc = new BroadcastChannel(syncCfg.channelName || "refik_webmap_live_v1");
+      bc.onmessage = ev => {
+        if (!ev.data || ev.data.type !== "STATE_SYNC") return;
+        reloadFromStorageAndApply();
+      };
+    }
+
+    function reloadFromStorageAndApply() {
+      stores = loadJson(KEYS.stores, INITIAL_STORES);
+      users = loadJson(KEYS.users, []);
+      adminCreds = { ...SINGLE_ADMIN, ...loadJson(KEYS.admin, SINGLE_ADMIN) };
+      const latestCfg = loadJson(KEYS.config, DEFAULT_CONFIG);
+      config = {
+        ...DEFAULT_CONFIG,
+        ...latestCfg,
+        colors: { ...DEFAULT_COLORS, ...(latestCfg.colors || {}) },
+        plugins: { ...DEFAULT_CONFIG.plugins, ...(latestCfg.plugins || {}) }
+      };
+      const savedTheme = localStorage.getItem(KEYS.theme) || "light";
+      applyTheme(savedTheme, false);
+
+      if (session && session.role === "user") {
+        const me = users.find(u => u.username === session.username);
+        if (!me) {
+          forceLogout("Hesabınız kaldırıldığı için çıkış yapıldı.");
+          return;
+        }
+        if (me.status === "blocked") {
+          forceLogout("Yönetici tarafından hesabınıza erişim engeli getirildi.");
+          return;
+        }
+        if (me.status === "passive") {
+          forceLogout("Hesabınız şu anda pasif duruma alındı.");
+          return;
+        }
+        session.permission = me.permission || "full";
+        saveSession();
+      }
+
+      if (!$("mainWorkspace").hidden) {
+        
+        renderStores();
+      }
+      if (session && session.role === "admin" && $("menuDrawer").classList.contains("open")) {
+        renderUsersAdmin();
+        renderStoresAdmin();
+      }
+    }
+
+    function forceLogout(reason) {
+      session = null;
+      saveSession();
+      closeMenuDrawer();
+      $("mainWorkspace").hidden = true;
+      $("authScreen").hidden = false;
+      syncDrawerControls();
+      loginTargetRole = "user";
+      syncLoginRoleUI();
+      showAuthMsg(reason, "err");
+    }
+
+    async function pushRemoteSnapshot() {
+      syncCfg.updatedAt = new Date().toISOString();
+      localStorage.setItem(KEYS.sync, JSON.stringify(syncCfg));
+      if (bc) {
+        bc.postMessage({ type: "STATE_SYNC", at: syncCfg.updatedAt });
+      }
+      if (syncCfg.endpointUrl && syncCfg.endpointUrl.trim()) {
+        try {
+          await fetch(syncCfg.endpointUrl.trim(), {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              updatedAt: syncCfg.updatedAt,
+              stores,
+              users,
+              config
+            })
+          });
+        } catch {}
+      }
+    }
+
+    function saveAll() {
+      if (!adminCreds.username) adminCreds.username = SINGLE_ADMIN.username;
+      if (!adminCreds.password) adminCreds.password = SINGLE_ADMIN.password;
+      if (!adminCreds.email) adminCreds.email = SINGLE_ADMIN.email;
+      localStorage.setItem(KEYS.stores, JSON.stringify(stores));
+      localStorage.setItem(KEYS.users, JSON.stringify(users));
+      localStorage.setItem(KEYS.admin, JSON.stringify(adminCreds));
+      localStorage.setItem(KEYS.config, JSON.stringify(config));
+      pushRemoteSnapshot();
+    }
+
+    function saveSession() {
+      if (session) localStorage.setItem(KEYS.session, JSON.stringify(session));
+      else localStorage.removeItem(KEYS.session);
+    }
+
+    window.addEventListener("storage", e => {
+      if (Object.values(KEYS).includes(e.key)) {
+        reloadFromStorageAndApply();
+      }
+    });
+
+    function esc(v) {
+      return String(v ?? "").replace(/[&<>"']/g, c => ({
+        "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+      }[c]));
+    }
+
+    const phonePrimary = s => (config.phonePrefix || "08502539") + s.code.slice(-3);
+    const phoneSecondary = s => (config.phonePrefix2 || "08502549") + s.code.slice(-3);
+    const formatPhone = num => num.replace(/(\d{4})(\d{3})(\d)(\d{3})/, "$1 $2 $3 $4");
+    function formatPhoneRich(num) {
+      const formatted = formatPhone(num);
+      return esc(formatted).replace(/(253|254)/g, '<span class="phone-diff-digit">$1</span>');
+    }
+
+    function extractCoordsFromText(str) {
+      if (!str) return null;
+      const decoded = (() => {
+        try { return decodeURIComponent(str); } catch { return str; }
+      })();
+
+      // Doğrudan enlem, boylam çifti (örn. 41.0082, 28.9784 veya 41.0082 28.9784)
+      const pairMatch = decoded.match(/(-?\d{1,2}\.\d+)[\s,;]+(-?\d{1,3}\.\d+)/);
+      if (pairMatch) return { lat: pairMatch[1], lng: pairMatch[2] };
+
+      const atMatch = decoded.match(/@(-?\d{1,2}\.\d+),(-?\d{1,3}\.\d+)/);
+      if (atMatch) return { lat: atMatch[1], lng: atMatch[2] };
+
+      const d34Match = decoded.match(/!3d(-?\d{1,2}\.\d+)!4d(-?\d{1,3}\.\d+)/);
+      if (d34Match) return { lat: d34Match[1], lng: d34Match[2] };
+
+      const qMatch = decoded.match(/[?&](?:q|ll|center|sll)=(-?\d{1,2}\.\d+)[,%2C]+(-?\d{1,3}\.\d+)/i);
+      if (qMatch) return { lat: qMatch[1], lng: qMatch[2] };
+
+      return null;
+    }
+
+    function normalizeLocationInput(raw) {
+      const val = String(raw || "").trim();
+      if (!val) return { raw: "", url: "", coords: null, query: "" };
+
+      const coords = extractCoordsFromText(val);
+      if (coords) {
+        return {
+          raw: val,
+          url: /^https?:\/\//i.test(val) ? val : "",
+          coords,
+          query: `${coords.lat},${coords.lng}`
+        };
+      }
+
+      if (/^https?:\/\//i.test(val)) {
+        return {
+          raw: val,
+          url: val,
+          coords: null,
+          query: val
+        };
+      }
+
+      return {
+        raw: val,
+        url: "",
+        coords: null,
+        query: val
+      };
+    }
+
+    function buildStoreMapUrls(store) {
+      const loc = normalizeLocationInput(store.location || store.address || "");
+      const fallbackQuery = "FİLE Market " + store.name + " İstanbul Avrupa Yakası" + (store.address ? " " + store.address : "");
+
+      let googleUrl = "";
+      let yandexUrl = "";
+
+      if (loc.coords) {
+        const pair = `${loc.coords.lat},${loc.coords.lng}`;
+        googleUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(pair)}`;
+        yandexUrl = `https://yandex.com.tr/maps/?pt=${encodeURIComponent(loc.coords.lng)},${encodeURIComponent(loc.coords.lat)}&z=17&l=map`;
+      } else if (loc.url) {
+        googleUrl = loc.url;
+        const yandexTarget = store.address
+          ? `FİLE Market ${store.name} ${store.address}`
+          : `FİLE Market ${store.name} İstanbul Avrupa Yakası`;
+        yandexUrl = `https://yandex.com.tr/maps/?text=${encodeURIComponent(yandexTarget)}`;
+      } else if (loc.query) {
+        googleUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(loc.query)}`;
+        yandexUrl = `https://yandex.com.tr/maps/?text=${encodeURIComponent(loc.query)}`;
+      } else {
+        googleUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(fallbackQuery)}`;
+        yandexUrl = `https://yandex.com.tr/maps/?text=${encodeURIComponent(fallbackQuery)}`;
+      }
+
+      return { googleUrl, yandexUrl, hasCustomLoc: Boolean(loc.raw), coords: loc.coords };
+    }
+
+    function openCallPicker(code, name) {
+      const storeObj = { code };
+      const p1 = phonePrimary(storeObj);
+      const p2 = phoneSecondary(storeObj);
+      $("callPickerTitle").textContent = `${name} (${code})`;
+      $("callPickerStoreInfo").textContent = "Aramak için bir numara seçin:";
+      $("callOptionPrimary").href = `tel:${p1}`;
+      $("callOptionPrimaryNum").innerHTML = formatPhoneRich(p1);
+      $("callOptionSecondary").href = `tel:${p2}`;
+      $("callOptionSecondaryNum").innerHTML = formatPhoneRich(p2);
+      $("callPickerModal").classList.add("open");
+    }
+
+    function closeCallPicker() {
+      $("callPickerModal").classList.remove("open");
+    }
+
+    $("callPickerCloseBtn").addEventListener("click", closeCallPicker);
+    $("callPickerModal").addEventListener("click", e => {
+      if (e.target === $("callPickerModal")) closeCallPicker();
+    });
+    $("callOptionPrimary").addEventListener("click", () => setTimeout(closeCallPicker, 120));
+    $("callOptionSecondary").addEventListener("click", () => setTimeout(closeCallPicker, 120));
+
+    function applyTheme(theme, persist = true) {
+      const isDark = theme === "dark";
+      requestAnimationFrame(() => {
+        document.documentElement.setAttribute("data-theme", isDark ? "dark" : "light");
+        $("themeSwitchInput").checked = isDark;
+        if (persist) localStorage.setItem(KEYS.theme, isDark ? "dark" : "light");
+        applyAppearance();
+      });
+    }
+
+    $("themeSwitchInput").addEventListener("change", e => {
+      applyTheme(e.target.checked ? "dark" : "light", true);
+    });
+
+    function syncDrawerControls() {
+      const isAdmin = !!(session && session.role === "admin");
+      const isUser = !!(session && session.role === "user");
+      const isLoggedIn = isAdmin || isUser;
+
+      $("userAccountSection").hidden = isAdmin;
+      $("adminSessionBox").hidden = !isAdmin;
+      $("adminOnlySections").hidden = !isAdmin;
+
+      if (isAdmin) {
+        $("adminSessionName").textContent = `@${session.username}`;
+      } else {
+        $("accountActionButtons").hidden = !isLoggedIn;
+        $("openDeleteAccountBtn").hidden = !isUser;
+        $("deleteAccountForm").hidden = true;
+        $("deleteAccountPass").value = "";
+
+        if (!isLoggedIn) {
+          $("accountInfoText").textContent = "Henüz giriş yapılmadı. Giriş yaptıktan sonra buradan çıkış yapabilir veya hesabınızı silebilirsiniz.";
+        } else {
+          const uObj = users.find(u => u.username === session.username);
+          const mailTxt = (uObj && uObj.email) ? ` · Kurtarma: ${uObj.email}` : "";
+          $("accountInfoText").textContent = `Aktif kullanıcı: @${session.username}${mailTxt}`;
+        }
+      }
+    }
+
+    function openMenuDrawer() {
+      syncDrawerControls();
+      clearAccountMsg();
+      if (session && session.role === "admin") {
+        renderUsersAdmin();
+        renderStoresAdmin();
+        syncAppearanceForm();
+        syncAdminSecForm();
+      }
+      $("menuDrawer").classList.add("open");
+      $("drawerBackdrop").classList.add("open");
+      $("mainMenuToggle").classList.add("open");
+      $("menuDrawer").setAttribute("aria-hidden", "false");
+    }
+
+    function closeMenuDrawer() {
+      $("menuDrawer").classList.remove("open");
+      $("drawerBackdrop").classList.remove("open");
+      $("mainMenuToggle").classList.remove("open");
+      $("menuDrawer").setAttribute("aria-hidden", "true");
+    }
+
+    $("mainMenuToggle").addEventListener("click", () => {
+      if ($("menuDrawer").classList.contains("open")) closeMenuDrawer();
+      else openMenuDrawer();
+    });
+    $("closeDrawerBtn").addEventListener("click", closeMenuDrawer);
+    $("drawerBackdrop").addEventListener("click", closeMenuDrawer);
+    document.addEventListener("keydown", e => {
+      if (e.key === "Escape") {
+        if ($("callPickerModal").classList.contains("open")) {
+          closeCallPicker();
+        } else if ($("confirmModal").classList.contains("open")) {
+          $("confirmCancelBtn").click();
+        } else if ($("menuDrawer").classList.contains("open")) {
+          closeMenuDrawer();
+        }
+      }
+    });
+
+    function showAccountMsg(text, type = "err") {
+      const el = $("accountMsg");
+      el.textContent = text;
+      el.className = `msg-box ${type}`;
+    }
+
+    function clearAccountMsg() {
+      const el = $("accountMsg");
+      el.textContent = "";
+      el.className = "msg-box";
+    }
+
+    function applyAppearance() {
+      const isDark = document.documentElement.getAttribute("data-theme") === "dark";
+      const rootStyle = document.documentElement.style;
+      rootStyle.setProperty("--motion-dur", config.motionSpeed || "0.45s");
+
+      if (config.colors) {
+        rootStyle.setProperty("--accent", config.colors.accent || DEFAULT_COLORS.accent);
+        rootStyle.setProperty("--accent-2", config.colors.accent2 || DEFAULT_COLORS.accent2);
+        if (!isDark) {
+          rootStyle.setProperty("--navy", config.colors.navy || DEFAULT_COLORS.navy);
+          rootStyle.setProperty("--navy-2", config.colors.navy2 || DEFAULT_COLORS.navy2);
+          rootStyle.setProperty("--bg", config.colors.bg || DEFAULT_COLORS.bg);
+          rootStyle.setProperty("--surface", config.colors.surface || DEFAULT_COLORS.surface);
+          rootStyle.setProperty("--surface-solid", config.colors.surface || DEFAULT_COLORS.surface);
+          rootStyle.setProperty("--text", config.colors.text || DEFAULT_COLORS.text);
+          rootStyle.setProperty("--muted", config.colors.muted || DEFAULT_COLORS.muted);
+        } else {
+          rootStyle.removeProperty("--navy");
+          rootStyle.removeProperty("--navy-2");
+          rootStyle.removeProperty("--bg");
+          rootStyle.removeProperty("--surface");
+          rootStyle.removeProperty("--surface-solid");
+          rootStyle.removeProperty("--text");
+          rootStyle.removeProperty("--muted");
+        }
+      }
+
+      $("brandText").textContent = config.brand || "REFİK WEBMAP";
+      if (config.icon && config.icon.trim() && config.icon.trim() !== "🗺️") {
+        $("headerIcon").textContent = config.icon.trim();
+      } else {
+        $("headerIcon").innerHTML = `<svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect width="512" height="512" rx="95" fill="#000"/><text x="78" y="380" font-family="Arial Black, sans-serif" font-size="365" font-weight="900" fill="white">R</text><path d="M174 225 L316 165 L253 286 L239 243 Z" fill="#000"/><path d="M174 225 L316 165 L253 286 L239 243 Z" fill="white"/><path d="M75 510 C25 425 105 356 190 320 C235 300 250 270 253 245" fill="none" stroke="white" stroke-width="22" stroke-linecap="round"/><path d="M125 510 C75 420 150 365 207 332" fill="none" stroke="black" stroke-width="8" stroke-dasharray="24 22"/><path d="M405 58 C362 58 342 91 342 124 C342 162 405 215 405 215 C405 215 468 162 468 124 C468 91 448 58 405 58Z" fill="white"/><circle cx="405" cy="122" r="25" fill="black"/><ellipse cx="405" cy="225" rx="44" ry="13" fill="none" stroke="white" stroke-width="9"/><path d="M405 239 C450 265 450 293 408 318" fill="none" stroke="white" stroke-width="8" stroke-linecap="round"/></svg>`;
+      }
+      $("pageTitle").textContent = config.title || "FİLE Market Şube Rehberi";
+      $("pageSubtitle").textContent = config.subtitle || "";
+      document.title = `${config.brand || "Refik Webmap"} | ${config.title || "FİLE Market Rehberi"}`;
+
+      const footerNoteEl = document.querySelector("#mainWorkspace small.note");
+      if (footerNoteEl) {
+        footerNoteEl.textContent = config.footerNote || DEFAULT_CONFIG.footerNote;
+      }
+
+      const mediaEl = $("headerMedia");
+      if (mediaEl) {
+        if (config.mediaUrl && config.mediaUrl.trim()) {
+          mediaEl.dataset.mediaUrl = config.mediaUrl.trim();
+          mediaEl.classList.add("active");
+        } else {
+          delete mediaEl.dataset.mediaUrl;
+          mediaEl.classList.remove("active");
+        }
+      }
+
+      const annEl = $("announcementBar");
+      if (config.plugins.announcement && config.announcement && config.announcement.trim()) {
+        annEl.textContent = config.announcement.trim();
+        annEl.classList.add("active");
+      } else {
+        annEl.classList.remove("active");
+      }
+
+      $("count").style.display = config.plugins.counter ? "block" : "none";
+    }
+
+    function showAuthMsg(text, type = "err") {
+      const box = $("authMsg");
+      box.textContent = text;
+      box.className = `msg-box ${type}`;
+    }
+
+    function clearAuthMsg() {
+      const box = $("authMsg");
+      box.textContent = "";
+      box.className = "msg-box";
+    }
+
+    function hideAllAuthForms() {
+      $("loginForm").hidden = true;
+      $("registerForm").hidden = true;
+      $("resetForm").hidden = true;
+      pendingResetCode = null;
+      $("codeStepBox").hidden = true;
+      $("confirmResetBtn").hidden = true;
+      $("sendResetCodeBtn").hidden = false;
+    }
+
+    function syncLoginRoleUI() {
+      clearAuthMsg();
+      hideAllAuthForms();
+      $("loginForm").hidden = false;
+
+      if (loginTargetRole === "admin") {
+        $("loginModeBadge").textContent = "YÖNETİCİ GİRİŞİ";
+        $("loginHeading").textContent = "Yönetici Giriş Yap";
+        $("loginSub").textContent = "Tek yönetici hesabı ile giriş yapın. Yeni yönetici hesabı açılmaz.";
+        $("openRegisterBtn").hidden = true;
+        $("toggleLoginRoleBtn").textContent = "Kullanıcı Girişine Dön";
+      } else {
+        $("loginModeBadge").textContent = "KULLANICI GİRİŞİ";
+        $("loginHeading").textContent = "Hesabınıza Giriş Yapın";
+        $("loginSub").textContent = "Kullanıcı adı, şifre ve kurtarma e-postası ile hesap açıp giriş yapın. Çıkış yapmadığınız sürece uygulama sizi hatırlar.";
+        $("openRegisterBtn").hidden = false;
+        $("toggleLoginRoleBtn").textContent = "Yönetici Giriş Yap";
+      }
+    }
+
+    $("toggleLoginRoleBtn").addEventListener("click", () => {
+      loginTargetRole = loginTargetRole === "user" ? "admin" : "user";
+      syncLoginRoleUI();
+    });
+
+    $("openRegisterBtn").addEventListener("click", () => {
+      clearAuthMsg();
+      hideAllAuthForms();
+      $("loginModeBadge").textContent = "HESAP AÇ";
+      $("loginHeading").textContent = "Kullanıcı Hesabı Aç";
+      $("loginSub").textContent = "Kullanıcı adı, şifre ve kurtarma e-posta adresinizi girerek hesabınızı açın.";
+      $("registerForm").hidden = false;
+    });
+
+    $("backFromRegBtn").addEventListener("click", syncLoginRoleUI);
+
+    $("registerForm").addEventListener("submit", e => {
+      e.preventDefault();
+      clearAuthMsg();
+      const username = $("regUsername").value.trim();
+      const password = $("regPass").value;
+      const email = $("regEmail").value.trim().toLowerCase();
+
+      if (!username || !password || !email) return;
+      if (password.length < 4) {
+        showAuthMsg("Şifre en az 4 karakter olmalıdır.", "err");
+        return;
+      }
+      if (username.toLowerCase() === adminCreds.username.toLowerCase()) {
+        showAuthMsg("Bu kullanıcı adı tek yönetici hesabına ayrılmıştır; yeni yönetici hesabı açılamaz.", "err");
+        return;
+      }
+      if (users.some(u => u.username.toLowerCase() === username.toLowerCase())) {
+        showAuthMsg("Bu kullanıcı adı zaten kayıtlı. Farklı bir kullanıcı adı seçin.", "err");
+        return;
+      }
+
+      users.push({
+        username,
+        displayName: username,
+        email,
+        password,
+        status: "active",
+        permission: "full",
+        isOnline: true,
+        lastLogin: new Date().toLocaleString("tr-TR"),
+        createdAt: new Date().toLocaleString("tr-TR")
+      });
+
+      session = {
+        role: "user",
+        username,
+        displayName: username,
+        permission: "full"
+      };
+      saveSession();
+      saveAll();
+      $("registerForm").reset();
+      enterWorkspace(true);
+    });
+
+    $("forgotPassBtn").addEventListener("click", () => {
+      clearAuthMsg();
+      hideAllAuthForms();
+      $("loginModeBadge").textContent = "ŞİFRE KURTARMA";
+      $("loginHeading").textContent = "Kurtarma E-postası ile Şifre Sıfırla";
+      $("loginSub").textContent = "Kayıtlı kullanıcı adınız, kurtarma e-posta adresiniz ve yeni şifrenizle şifrenizi sıfırlayın.";
+      $("resetForm").hidden = false;
+    });
+
+    $("backToLoginBtn").addEventListener("click", syncLoginRoleUI);
+
+    $("sendResetCodeBtn").addEventListener("click", () => {
+      const uName = $("resetUser").value.trim().toLowerCase();
+      const emailInput = $("resetEmail").value.trim().toLowerCase();
+      const newPass = $("resetNewPass").value;
+
+      if (!emailInput || !newPass || newPass.length < 4) {
+        showAuthMsg("Geçerli bir kurtarma e-posta adresi ve en az 4 karakterlik yeni şifre girin.", "err");
+        return;
+      }
+
+      let matched = false;
+      if (!uName && emailInput === (adminCreds.email || "").toLowerCase()) {
+        matched = true;
+      } else if (uName) {
+        const targetUser = users.find(u => u.username.toLowerCase() === uName);
+        if (targetUser && (targetUser.email || "").toLowerCase() === emailInput) {
+          matched = true;
+        }
+      } else if (emailInput === (adminCreds.email || "").toLowerCase()) {
+        matched = true;
+      }
+
+      if (!matched) {
+        showAuthMsg("Kullanıcı adı ve kurtarma e-posta adresi eşleşmedi.", "err");
+        return;
+      }
+
+      pendingResetCode = String(Math.floor(100000 + Math.random() * 900000));
+      $("codeStepBox").hidden = false;
+      $("confirmResetBtn").hidden = false;
+      $("sendResetCodeBtn").hidden = true;
+      showAuthMsg(`Kurtarma doğrulama kodu (${emailInput}): ${pendingResetCode}`, "ok");
+    });
+
+    $("resetForm").addEventListener("submit", e => {
+      e.preventDefault();
+      const uName = $("resetUser").value.trim().toLowerCase();
+      const emailInput = $("resetEmail").value.trim().toLowerCase();
+      const enteredCode = $("resetCodeInput").value.trim();
+      const newPass = $("resetNewPass").value;
+
+      if (!pendingResetCode || enteredCode !== pendingResetCode) {
+        showAuthMsg("Doğrulama kodu hatalı.", "err");
+        return;
+      }
+
+      if (uName) {
+        const idx = users.findIndex(u => u.username.toLowerCase() === uName && (u.email || "").toLowerCase() === emailInput);
+        if (idx !== -1) {
+          users[idx].password = newPass;
+          saveAll();
+          syncLoginRoleUI();
+          showAuthMsg(`@${users[idx].username} şifresi güncellendi. Giriş yapabilirsiniz.`, "ok");
+          return;
+        }
+      }
+
+      if (emailInput === (adminCreds.email || "").toLowerCase()) {
+        adminCreds.password = newPass;
+        saveAll();
+        syncLoginRoleUI();
+        showAuthMsg("Yönetici şifresi güncellendi. Giriş yapabilirsiniz.", "ok");
+        return;
+      }
+
+      showAuthMsg("Güncelleme yapılamadı, bilgileri kontrol edin.", "err");
+    });
+
+    $("loginForm").addEventListener("submit", e => {
+      e.preventDefault();
+      clearAuthMsg();
+      const u = $("loginUser").value.trim();
+      const p = $("loginPass").value;
+
+      if (loginTargetRole === "admin") {
+        if (u === adminCreds.username && p === adminCreds.password) {
+          session = { role: "admin", username: adminCreds.username, displayName: adminCreds.username, permission: "full" };
+          saveSession();
+          enterWorkspace(true);
+        } else {
+          showAuthMsg("Yönetici kullanıcı adı veya şifre hatalı.", "err");
+        }
+        return;
+      }
+
+      const found = users.find(item => item.username === u && item.password === p);
+      if (!found) {
+        showAuthMsg("Kullanıcı adı veya şifre hatalı.", "err");
+        return;
+      }
+      if (found.status === "blocked") {
+        showAuthMsg("Yönetici tarafından hesabınıza erişim engeli getirilmiştir.", "err");
+        return;
+      }
+      if (found.status !== "active") {
+        showAuthMsg("Bu kullanıcı hesabı şu anda pasif durumda.", "err");
+        return;
+      }
+
+      found.isOnline = true;
+      found.lastLogin = new Date().toLocaleString("tr-TR");
+      saveAll();
+
+      session = {
+        role: "user",
+        username: found.username,
+        displayName: found.username,
+        permission: found.permission || "full"
+      };
+      saveSession();
+      enterWorkspace(true);
+    });
+
+    function playWelcomeAnimation(onDone) {
+      const splash = $("welcomeSplash");
+      splash.classList.remove("leaving");
+      splash.classList.add("active");
+
+      clearTimeout(window.__welcomeTimer);
+      clearTimeout(window.__welcomeHideTimer);
+
+      window.__welcomeTimer = setTimeout(() => {
+        splash.classList.add("leaving");
+        if (typeof onDone === "function") onDone();
+        window.__welcomeHideTimer = setTimeout(() => {
+          splash.classList.remove("active", "leaving");
+        }, 400);
+      }, 2000);
+    }
+
+    function enterWorkspace(withWelcomeAnim = false) {
+      $("authScreen").hidden = true;
+      syncDrawerControls();
+
+      const isAdmin = session && session.role === "admin";
+      renderStores();
+      if (isAdmin) {
+        renderUsersAdmin();
+        renderStoresAdmin();
+        syncAppearanceForm();
+        syncAdminSecForm();
+      }
+
+      if (withWelcomeAnim) {
+        $("mainWorkspace").hidden = true;
+        playWelcomeAnimation(() => {
+          $("mainWorkspace").hidden = false;
+          renderStores();
+        });
+      } else {
+        $("mainWorkspace").hidden = false;
+      }
+    }
+
+    function performLogout() {
+      if (!session) return;
+      if (session.role === "user") {
+        const me = users.find(u => u.username === session.username);
+        if (me) {
+          me.isOnline = false;
+          saveAll();
+        }
+      }
+      session = null;
+      saveSession();
+      closeMenuDrawer();
+      $("mainWorkspace").hidden = true;
+      $("authScreen").hidden = false;
+      $("loginForm").reset();
+      syncDrawerControls();
+      loginTargetRole = "user";
+      syncLoginRoleUI();
+    }
+
+    $("drawerLogoutBtn").addEventListener("click", performLogout);
+    $("adminLogoutBtn").addEventListener("click", performLogout);
+
+    // KULLANICI HESABINI ŞİFRE GİREREK SİLME
+    $("openDeleteAccountBtn").addEventListener("click", () => {
+      clearAccountMsg();
+      $("deleteAccountForm").hidden = false;
+      $("deleteAccountPass").value = "";
+      $("deleteAccountPass").focus();
+    });
+
+    $("cancelDeleteAccountBtn").addEventListener("click", () => {
+      clearAccountMsg();
+      $("deleteAccountForm").hidden = true;
+      $("deleteAccountPass").value = "";
+    });
+
+    $("deleteAccountForm").addEventListener("submit", e => {
+      e.preventDefault();
+      clearAccountMsg();
+      if (!session || session.role !== "user") return;
+
+      const enteredPass = $("deleteAccountPass").value;
+      const me = users.find(u => u.username === session.username);
+      if (!me || me.password !== enteredPass) {
+        showAccountMsg("Şifre hatalı. Hesap silinmedi.", "err");
+        return;
+      }
+
+      users = users.filter(u => u.username !== session.username);
+      session = null;
+      saveSession();
+      saveAll();
+      closeMenuDrawer();
+      $("mainWorkspace").hidden = true;
+      $("authScreen").hidden = false;
+      $("loginForm").reset();
+      syncDrawerControls();
+      loginTargetRole = "user";
+      syncLoginRoleUI();
+      showAuthMsg("Hesabınız şifreniz doğrulanarak kalıcı olarak silindi.", "ok");
+    });
+
+    const GOOGLE_MAPS_ICON_SVG = `<img width="600" height="600" src="https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a3/Google_Maps_icon_%282026%29.svg/960px-Google_Maps_icon_%282026%29.svg.png?utm_source=commons.wikimedia.org&amp;utm_campaign=index&amp;utm_content=thumbnail" srcset="https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a3/Google_Maps_icon_%282026%29.svg/250px-Google_Maps_icon_%282026%29.svg.png?utm_source=commons.wikimedia.org&amp;utm_campaign=index&amp;utm_content=thumbnail 250w, https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a3/Google_Maps_icon_%282026%29.svg/500px-Google_Maps_icon_%282026%29.svg.png?utm_source=commons.wikimedia.org&amp;utm_campaign=index&amp;utm_content=thumbnail 500w, https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a3/Google_Maps_icon_%282026%29.svg/960px-Google_Maps_icon_%282026%29.svg.png?utm_source=commons.wikimedia.org&amp;utm_campaign=index&amp;utm_content=thumbnail 960w, https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a3/Google_Maps_icon_%282026%29.svg/1280px-Google_Maps_icon_%282026%29.svg.png?utm_source=commons.wikimedia.org&amp;utm_campaign=index&amp;utm_content=thumbnail 1280w, https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a3/Google_Maps_icon_%282026%29.svg/3840px-Google_Maps_icon_%282026%29.svg.png?utm_source=commons.wikimedia.org&amp;utm_campaign=index&amp;utm_content=thumbnail 3840w" sizes="auto" loading="lazy" alt="Logo of Google Maps (2026)">`;
+
+    const YANDEX_NAVIGATOR_ICON_SVG = `<img width="600" height="600" src="https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a3/YandexNavigatorLogo.svg/960px-YandexNavigatorLogo.svg.png?utm_source=commons.wikimedia.org&amp;utm_campaign=index&amp;utm_content=thumbnail" srcset="https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a3/YandexNavigatorLogo.svg/250px-YandexNavigatorLogo.svg.png?utm_source=commons.wikimedia.org&amp;utm_campaign=index&amp;utm_content=thumbnail 250w, https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a3/YandexNavigatorLogo.svg/500px-YandexNavigatorLogo.svg.png?utm_source=commons.wikimedia.org&amp;utm_campaign=index&amp;utm_content=thumbnail 500w, https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a3/YandexNavigatorLogo.svg/960px-YandexNavigatorLogo.svg.png?utm_source=commons.wikimedia.org&amp;utm_campaign=index&amp;utm_content=thumbnail 960w, https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a3/YandexNavigatorLogo.svg/1280px-YandexNavigatorLogo.svg.png?utm_source=commons.wikimedia.org&amp;utm_content=thumbnail 1280w, https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a3/YandexNavigatorLogo.svg/3840px-YandexNavigatorLogo.svg.png?utm_source=commons.wikimedia.org&amp;utm_campaign=index&amp;utm_content=thumbnail 3840w" sizes="auto" loading="lazy" alt="YandexNavigatorLogo">`;
+
+    function renderStores() {
+      const q = $("search").value.trim().toLocaleLowerCase("tr");
+      const list = stores.filter(s =>
+        (s.name + " " + s.code + " " + phonePrimary(s) + " " + phoneSecondary(s) + " " + (s.address || ""))
+          .toLocaleLowerCase("tr")
+          .includes(q)
+      );
+
+      $("count").textContent = `${list.length} mağaza gösteriliyor · Toplam ${stores.length} kayıt`;
+
+      const perm = (session && session.role === "admin") ? "full" : ((session && session.permission) || "full");
+      const canUseMaps = config.plugins.maps && perm === "full";
+      const canUseCall = config.plugins.call && perm === "full";
+      const emptyAddrLabel = config.defaultAddressText || DEFAULT_CONFIG.defaultAddressText;
+
+      $("cards").innerHTML = list.map((s, idx) => {
+        const { googleUrl, yandexUrl, hasCustomLoc } = buildStoreMapUrls(s);
+        const locBadge = hasCustomLoc ? ` · <span style="color:var(--accent);font-weight:700">Konum tanımlı</span>` : "";
+        const mapBtns = [
+          canUseMaps
+            ? `<a class="link google map-icon-btn" target="_blank" rel="noopener" href="${esc(googleUrl)}" title="Google Haritalar" aria-label="Google Haritalar">${GOOGLE_MAPS_ICON_SVG}</a>`
+            : "",
+          canUseMaps
+            ? `<a class="link yandex map-icon-btn" target="_blank" rel="noopener" href="${esc(yandexUrl)}" title="Yandex Navigator" aria-label="Yandex Navigator">${YANDEX_NAVIGATOR_ICON_SVG}</a>`
+            : "",
+          canUseCall
+            ? `<button class="link call" type="button" onclick="openCallPicker('${esc(s.code)}', '${esc(s.name)}')">Ara</button>`
+            : ""
+        ].filter(Boolean).join("");
+
+        return `
+          <article class="card" style="animation-delay:${Math.min(idx * 20, 260)}ms">
+            <div class="card-top">
+              <div class="name">${esc(s.name)}</div>
+              <span class="code-badge">${esc(s.code)}</span>
+            </div>
+            <div class="meta">${formatPhoneRich(phonePrimary(s))} · ${formatPhoneRich(phoneSecondary(s))}${locBadge}</div>
+            <div class="address">${esc(s.address || emptyAddrLabel)}</div>
+            <div class="actions">${mapBtns || `<span style="font-size:12px;color:var(--muted)">Erişim izni: ${perm === "search_only" ? "Yalnızca Arama" : "Kısıtlı"}</span>`}</div>
+          </article>
+        `;
+      }).join("");
+    }
+
+    $("search").addEventListener("input", renderStores);
+
+    document.querySelectorAll(".tab-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        const targetId = btn.dataset.tab;
+        document.querySelectorAll(".tab-pane").forEach(pane => {
+          pane.hidden = pane.id !== targetId;
+        });
+      });
+    });
+
+    function renderUserAnalytics() {
+      const total = users.length;
+      const onlineCount = users.filter(u => u.isOnline && u.status === "active").length;
+      const activeCount = users.filter(u => u.status === "active").length;
+      const blockedCount = users.filter(u => u.status === "blocked").length;
+
+      $("userAnalyticsGrid").innerHTML = `
+        <div class="kpi-card"><div class="kpi-num">${total}</div><div class="kpi-label">Toplam Kullanıcı Hesabı</div></div>
+        <div class="kpi-card"><div class="kpi-num">${onlineCount}</div><div class="kpi-label">Şu An Çevrimiçi</div></div>
+        <div class="kpi-card"><div class="kpi-num">${activeCount}</div><div class="kpi-label">Aktif Hesap</div></div>
+        <div class="kpi-card"><div class="kpi-num">${blockedCount}</div><div class="kpi-label">Engelli Hesap</div></div>
+      `;
+    }
+
+    function renderUsersAdmin() {
+      renderUserAnalytics();
+      const box = $("userListBox");
+      if (!users.length) {
+        box.innerHTML = `<p style="color:var(--muted);margin:10px 0">Henüz kullanıcı hesabı açılmamış. Kullanıcılar giriş ekranından kendi hesaplarını açabilir.</p>`;
+        return;
+      }
+      box.innerHTML = users.map((u, i) => {
+        const statusCls = u.status === "blocked" ? "status-blocked" : (u.status === "active" ? "status-active" : "status-passive");
+        const statusTxt = u.status === "blocked" ? "ENGELLİ" : (u.status === "active" ? "AKTİF" : "PASİF");
+        const permLabel = u.permission === "search_only" ? "Kısıtlı (Yalnızca Arama)" : (u.permission === "readonly" ? "Kısıtlı Görüntüleme" : "Tam İzin");
+        return `
+          <div class="row-item">
+            <div>
+              <b>@${esc(u.username)}</b> · Şifre: <code>${esc(u.password)}</code>
+              <span class="status-dot ${statusCls}">${statusTxt}</span>
+              ${u.isOnline ? `<span class="status-dot status-online">ÇEVRİMİÇİ</span>` : ""}
+              <div style="font-size:12px;color:var(--muted)">
+                E-posta: <b>${esc(u.email || "Tanımlı değil")}</b> · İzin: <b>${permLabel}</b> · Son giriş: ${esc(u.lastLogin || "Henüz girmedi")}
+              </div>
+            </div>
+            <div style="display:flex;gap:6px;flex-wrap:wrap">
+              <button class="plain" type="button" onclick="toggleUserStatus(${i})">
+                ${u.status === "active" ? "Pasife Al" : "Aktif Yap"}
+              </button>
+              <button class="plain" type="button" onclick="toggleBlockUser(${i})">
+                ${u.status === "blocked" ? "Engeli Kaldır" : "Engelle"}
+              </button>
+              <button class="plain" type="button" onclick="selectUserForPerm(${i})">Kısıtlama & İzin</button>
+              <button class="danger-btn" type="button" onclick="deleteUser(${i})">Sil</button>
+            </div>
+          </div>
+        `;
+      }).join("");
+    }
+
+    window.selectUserForPerm = i => {
+      const u = users[i];
+      $("uEditUsername").value = u.username;
+      $("uEditEmail").value = u.email || "";
+      $("uEditStatus").value = u.status || "active";
+      $("uEditPermission").value = u.permission || "full";
+      $("userPermForm").dataset.index = String(i);
+      $("userPermForm").hidden = false;
+    };
+
+    $("uEditCancelBtn").addEventListener("click", () => {
+      $("userPermForm").reset();
+      delete $("userPermForm").dataset.index;
+      $("userPermForm").hidden = true;
+    });
+
+    $("userPermForm").addEventListener("submit", e => {
+      e.preventDefault();
+      const idx = Number($("userPermForm").dataset.index);
+      if (Number.isNaN(idx) || !users[idx]) return;
+      const nextEmail = $("uEditEmail").value.trim().toLowerCase();
+      const nextStatus = $("uEditStatus").value;
+      const nextPerm = $("uEditPermission").value;
+
+      requestApproval(
+        "Kullanıcı Durum & Kısıtlama Onayı",
+        `@${users[idx].username} kullanıcısının durum ve kısıtlama ayarları güncellensin mi?`,
+        () => {
+          users[idx].email = nextEmail;
+          users[idx].status = nextStatus;
+          users[idx].permission = nextPerm;
+          if (nextStatus !== "active") users[idx].isOnline = false;
+          saveAll();
+          renderUsersAdmin();
+          $("uEditCancelBtn").click();
+        }
+      );
+    });
+
+    window.toggleBlockUser = i => {
+      const target = users[i];
+      const nextStatus = target.status === "blocked" ? "active" : "blocked";
+      requestApproval(
+        "Kullanıcı Engel Onayı",
+        `@${target.username} kullanıcısına erişim ${nextStatus === "blocked" ? "engellensin" : "açılsın"} mi?`,
+        () => {
+          target.status = nextStatus;
+          if (nextStatus === "blocked") target.isOnline = false;
+          saveAll();
+          renderUsersAdmin();
+        }
+      );
+    };
+
+    window.toggleUserStatus = i => {
+      const target = users[i];
+      const nextStatus = target.status === "active" ? "passive" : "active";
+      requestApproval(
+        "Kullanıcı Aktif/Pasif Onayı",
+        `@${target.username} hesabı ${nextStatus === "active" ? "AKTİF" : "PASİF"} yapılsın mı?`,
+        () => {
+          target.status = nextStatus;
+          if (nextStatus !== "active") target.isOnline = false;
+          saveAll();
+          renderUsersAdmin();
+        }
+      );
+    };
+
+    window.deleteUser = i => {
+      const target = users[i];
+      requestApproval(
+        "Kullanıcı Hesabını Silme Onayı",
+        `@${target.username} kullanıcı hesabı kalıcı olarak silinsin mi?`,
+        () => {
+          users.splice(i, 1);
+          saveAll();
+          renderUsersAdmin();
+        }
+      );
+    };
+
+    function renderStoresAdmin() {
+      $("adminList").innerHTML = stores.map((s, i) => {
+        const coords = extractCoordsFromText(s.location || "");
+        const coordTag = coords
+          ? `<span class="status-dot status-active" title="Google & Yandex koordinatlı">${esc(coords.lat)}, ${esc(coords.lng)}</span>`
+          : (s.location ? `<span class="status-dot status-passive">${esc(s.location)}</span>` : "");
+        return `
+        <div class="row-item">
+          <span><b>${esc(s.code)}</b> · ${esc(s.name)} ${coordTag}</span>
+          <span style="display:flex;gap:6px">
+            <button class="plain" type="button" onclick="editStore(${i})">Düzenle</button>
+            <button class="danger-btn" type="button" onclick="deleteStore(${i})">Sil</button>
+          </span>
+        </div>
+      `;
+      }).join("");
+    }
+
+    function updateCoordPreview() {
+      const raw = $("location").value.trim();
+      const box = $("coordPreview");
+      if (!box) return;
+      if (!raw) {
+        box.textContent = "";
+        return;
+      }
+      const coords = extractCoordsFromText(raw);
+      if (coords) {
+        box.style.color = "var(--accent)";
+        box.textContent = `✓ Algılanan koordinat: Enlem ${coords.lat}, Boylam ${coords.lng} (Google & Yandex aynı noktayı açar)`;
+      } else {
+        box.style.color = "var(--muted)";
+        box.textContent = "Not: Koordinat algılanmadı, metin/adres olarak aranacak (örn. 40.974601,28.662735)";
+      }
+    }
+
+    $("location").addEventListener("input", updateCoordPreview);
+
+    window.editStore = i => {
+      const s = stores[i];
+      $("code").value = s.code;
+      $("name").value = s.name;
+      $("location").value = s.location || "";
+      $("address").value = s.address || "";
+      $("storeForm").dataset.edit = String(i);
+      updateCoordPreview();
+      $("code").scrollIntoView({ behavior: "smooth", block: "center" });
+    };
+
+    window.deleteStore = i => {
+      const target = stores[i];
+      requestApproval(
+        "Mağaza Silme Onayı",
+        `${target.code} - ${target.name} mağaza kaydı silinsin mi?`,
+        () => {
+          stores.splice(i, 1);
+          saveAll();
+          renderStores();
+          renderStoresAdmin();
+        }
+      );
+    };
+
+    $("cancel").addEventListener("click", () => {
+      $("storeForm").reset();
+      delete $("storeForm").dataset.edit;
+      updateCoordPreview();
+    });
+
+    $("storeForm").addEventListener("submit", e => {
+      e.preventDefault();
+      const code = $("code").value.trim().toUpperCase();
+      const name = $("name").value.trim();
+      const location = $("location").value.trim();
+      const address = $("address").value.trim();
+      if (!/^F\d{3}$/.test(code)) {
+        alert("Kod F ve üç rakamdan oluşmalı (örn. F127).");
+        return;
+      }
+      const idx = $("storeForm").dataset.edit;
+      if (idx === undefined && stores.some(s => s.code === code)) {
+        alert("Bu kod zaten kayıtlı.");
+        return;
+      }
+      const obj = { code, name, location, address };
+
+      requestApproval(
+        "Mağaza Kayıt Onayı",
+        `${code} - ${name} mağaza bilgisi kaydedilsin mi?`,
+        () => {
+          if (idx !== undefined) {
+            stores[Number(idx)] = obj;
+          } else {
+            stores.push(obj);
+          }
+          saveAll();
+          $("storeForm").reset();
+          delete $("storeForm").dataset.edit;
+          updateCoordPreview();
+          renderStores();
+          renderStoresAdmin();
+        }
+      );
+    });
+
+    $("resetStoresDefault").addEventListener("click", () => {
+      requestApproval(
+        "Varsayılan Mağaza Listesi Onayı",
+        "Tüm mağaza düzenlemeleri silinip varsayılan 78 mağaza listesine dönülsün mü?",
+        () => {
+          stores = structuredClone(INITIAL_STORES);
+          saveAll();
+          renderStores();
+          renderStoresAdmin();
+        }
+      );
+    });
+
+    $("export").addEventListener("click", () => {
+      const a = document.createElement("a");
+      const u = URL.createObjectURL(new Blob([JSON.stringify(stores, null, 2)], { type: "application/json" }));
+      a.href = u;
+      a.download = "refik-webmap-yedek.json";
+      a.click();
+      URL.revokeObjectURL(u);
+    });
+
+    $("importFile").addEventListener("change", async e => {
+      try {
+        const v = JSON.parse(await e.target.files[0].text());
+        if (!Array.isArray(v) || !v.every(s => s.code && s.name)) throw new Error();
+        requestApproval(
+          "Yedek İçe Aktarma Onayı",
+          `${v.length} mağaza kaydı mevcut listenin yerine yüklensin mi?`,
+          () => {
+            stores = v;
+            saveAll();
+            renderStores();
+            renderStoresAdmin();
+          }
+        );
+      } catch {
+        alert("Geçerli mağaza yedeği seçin.");
+      }
+      e.target.value = "";
+    });
+
+    function syncAppearanceForm() {
+      const c = config.colors || DEFAULT_COLORS;
+      $("cfgBrand").value = config.brand || "";
+      $("cfgIcon").value = config.icon || "";
+      $("cfgTitle").value = config.title || "";
+      $("cfgSubtitle").value = config.subtitle || "";
+      $("cfgMediaUrl").value = config.mediaUrl || "";
+      $("cfgAnnouncement").value = config.announcement || "";
+      $("cfgFooterNote").value = config.footerNote || DEFAULT_CONFIG.footerNote;
+      $("cfgPhonePrefix").value = config.phonePrefix || DEFAULT_CONFIG.phonePrefix;
+      $("cfgPhonePrefix2").value = config.phonePrefix2 || DEFAULT_CONFIG.phonePrefix2;
+      $("cfgDefaultAddressText").value = config.defaultAddressText || DEFAULT_CONFIG.defaultAddressText;
+      $("cfgMotionSpeed").value = config.motionSpeed || "0.45s";
+
+      $("colAccent").value = c.accent || DEFAULT_COLORS.accent;
+      $("colAccent2").value = c.accent2 || DEFAULT_COLORS.accent2;
+      $("colNavy").value = c.navy || DEFAULT_COLORS.navy;
+      $("colNavy2").value = c.navy2 || DEFAULT_COLORS.navy2;
+      $("colBg").value = c.bg || DEFAULT_COLORS.bg;
+      $("colSurface").value = c.surface || DEFAULT_COLORS.surface;
+      $("colText").value = c.text || DEFAULT_COLORS.text;
+      $("colMuted").value = c.muted || DEFAULT_COLORS.muted;
+
+      $("plugAnnouncement").checked = !!config.plugins.announcement;
+      $("plugCounter").checked = !!config.plugins.counter;
+      $("plugMaps").checked = !!config.plugins.maps;
+      $("plugCall").checked = !!config.plugins.call;
+    }
+
+    $("appearanceForm").addEventListener("submit", e => {
+      e.preventDefault();
+      const nextConfig = {
+        brand: $("cfgBrand").value.trim() || "REFİK WEBMAP",
+        icon: $("cfgIcon").value.trim() || "🗺️",
+        title: $("cfgTitle").value.trim() || "FİLE Market Şube Rehberi",
+        subtitle: $("cfgSubtitle").value.trim(),
+        mediaUrl: $("cfgMediaUrl").value.trim(),
+        announcement: $("cfgAnnouncement").value.trim(),
+        footerNote: $("cfgFooterNote").value.trim() || DEFAULT_CONFIG.footerNote,
+        phonePrefix: $("cfgPhonePrefix").value.trim() || DEFAULT_CONFIG.phonePrefix,
+        phonePrefix2: $("cfgPhonePrefix2").value.trim() || DEFAULT_CONFIG.phonePrefix2,
+        defaultAddressText: $("cfgDefaultAddressText").value.trim() || DEFAULT_CONFIG.defaultAddressText,
+        motionSpeed: $("cfgMotionSpeed").value || "0.45s",
+        colors: {
+          accent: $("colAccent").value || DEFAULT_COLORS.accent,
+          accent2: $("colAccent2").value || DEFAULT_COLORS.accent2,
+          navy: $("colNavy").value || DEFAULT_COLORS.navy,
+          navy2: $("colNavy2").value || DEFAULT_COLORS.navy2,
+          bg: $("colBg").value || DEFAULT_COLORS.bg,
+          surface: $("colSurface").value || DEFAULT_COLORS.surface,
+          text: $("colText").value || DEFAULT_COLORS.text,
+          muted: $("colMuted").value || DEFAULT_COLORS.muted
+        },
+        plugins: {
+          announcement: $("plugAnnouncement").checked,
+          counter: $("plugCounter").checked,
+          maps: $("plugMaps").checked,
+          call: $("plugCall").checked
+        }
+      };
+
+      requestApproval(
+        "Görünüm, Renk & Eklenti Onayı",
+        "Tüm renk, ikon/GIF, metin ve eklenti değişiklikleri onayınızla uygulansın ve karşıya aktarılsın mı?",
+        () => {
+          config = nextConfig;
+          saveAll();
+          applyAppearance();
+          renderStores();
+        }
+      );
+    });
+
+    $("resetColorsBtn").addEventListener("click", () => {
+      requestApproval(
+        "Varsayılan Renk Onayı",
+        "Tüm renk ayarları varsayılan palete sıfırlansın mı?",
+        () => {
+          config.colors = { ...DEFAULT_COLORS };
+          saveAll();
+          syncAppearanceForm();
+          applyAppearance();
+        }
+      );
+    });
+
+    function syncAdminSecForm() {
+      $("secAdminUser").value = adminCreds.username;
+      $("secAdminEmail").value = adminCreds.email;
+      $("secAdminPass").value = adminCreds.password;
+      $("syncEndpointUrl").value = syncCfg.endpointUrl || "";
+      $("syncChannelName").value = syncCfg.channelName || "refik_webmap_live_v1";
+    }
+
+    $("adminSecForm").addEventListener("submit", e => {
+      e.preventDefault();
+      const nextAdmin = {
+        username: $("secAdminUser").value.trim() || SINGLE_ADMIN.username,
+        email: $("secAdminEmail").value.trim() || SINGLE_ADMIN.email,
+        password: $("secAdminPass").value || SINGLE_ADMIN.password
+      };
+
+      requestApproval(
+        "Tek Yönetici Bilgileri Onayı",
+        "Yönetici kullanıcı adı, kurtarma e-postası ve şifresi güncellensin mi?",
+        () => {
+          adminCreds = nextAdmin;
+          if (session && session.role === "admin") {
+            session.username = adminCreds.username;
+            saveSession();
+          }
+          
+          syncDrawerControls();
+          saveAll();
+        }
+      );
+    });
+
+    $("saveSyncSettingsBtn").addEventListener("click", () => {
+      const nextUrl = $("syncEndpointUrl").value.trim();
+      const nextChannel = $("syncChannelName").value.trim() || "refik_webmap_live_v1";
+      requestApproval(
+        "Canlı Senkron Ayarı Onayı",
+        "Canlı senkron kanal ve hedef adres ayarları kaydedilsin mi?",
+        () => {
+          syncCfg.endpointUrl = nextUrl;
+          syncCfg.channelName = nextChannel;
+          localStorage.setItem(KEYS.sync, JSON.stringify(syncCfg));
+          initBroadcastChannel();
+          pushRemoteSnapshot();
+        }
+      );
+    });
+
+    $("pushNowBtn").addEventListener("click", () => {
+      requestApproval(
+        "Karşıya Aktarım Onayı",
+        "Güncel veriler karşıya gönderilsin ve ekran yenilensin mi?",
+        () => {
+          pushRemoteSnapshot();
+          reloadFromStorageAndApply();
+        }
+      );
+    });
+
+    // YUKARIDAN AŞAĞI ÇEKME & YUMUŞAK KÜÇÜLME / GENİŞLEME KONTROLÜ
+    (function initPullExpandHeader() {
+      let currentExpand = 0;
+      let targetExpand = 0;
+      let rafId = null;
+      let touchStartY = null;
+      let isPulling = false;
+
+      function setInstantTransition(active) {
+        const dur = active ? "0.08s" : "";
+        const targets = [
+          document.querySelector("header"),
+          document.querySelector("header .brand-icon-badge"),
+          document.querySelector("header .brand"),
+          document.querySelector("header h1"),
+          document.querySelector("header p"),
+          document.querySelector("header .solar-system")
+        ];
+        targets.forEach(el => {
+          if (!el) return;
+          el.style.transitionDuration = dur;
+        });
+      }
+
+      function step() {
+        currentExpand += (targetExpand - currentExpand) * 0.14;
+        if (Math.abs(targetExpand - currentExpand) < 0.001) {
+          currentExpand = targetExpand;
+        }
+        document.documentElement.style.setProperty("--pull-expand", currentExpand.toFixed(4));
+        if (currentExpand !== targetExpand) {
+          rafId = requestAnimationFrame(step);
+        } else {
+          rafId = null;
+        }
+      }
+
+      function setTargetExpand(val) {
+        targetExpand = Math.max(0, Math.min(1, val));
+        if (!rafId) {
+          rafId = requestAnimationFrame(step);
+        }
+      }
+
+      window.addEventListener("touchstart", e => {
+        if (e.touches.length !== 1) return;
+        const scrollTop = window.scrollY || document.documentElement.scrollTop || 0;
+        if (scrollTop <= 2) {
+          touchStartY = e.touches[0].clientY;
+          isPulling = true;
+          setInstantTransition(true);
+        } else {
+          touchStartY = null;
+          isPulling = false;
+        }
+      }, { passive: true });
+
+      window.addEventListener("touchmove", e => {
+        if (!isPulling || touchStartY === null || e.touches.length !== 1) return;
+        const scrollTop = window.scrollY || document.documentElement.scrollTop || 0;
+        const deltaY = e.touches[0].clientY - touchStartY;
+
+        if (scrollTop <= 2 && deltaY > 0) {
+          const factor = Math.min(1, deltaY / 160);
+          setTargetExpand(factor);
+        } else if (deltaY < 0) {
+          // Aşağıdan yukarı çekildiğinde / kaydırıldığında yumuşakça eski haline dön
+          setTargetExpand(0);
+        }
+      }, { passive: true });
+
+      function endTouchPull() {
+        isPulling = false;
+        touchStartY = null;
+        setInstantTransition(false);
+        setTargetExpand(0);
+      }
+
+      window.addEventListener("touchend", endTouchPull, { passive: true });
+      window.addEventListener("touchcancel", endTouchPull, { passive: true });
+
+      // Masaüstünde sayfa en tepedeyken yukarı tekerlek/kaydırma ile hafif genişleme, aşağı kaydırınca eski haline dönme
+      window.addEventListener("wheel", e => {
+        const scrollTop = window.scrollY || document.documentElement.scrollTop || 0;
+        if (e.deltaY > 0) {
+          setTargetExpand(0);
+        } else if (e.deltaY < 0 && scrollTop <= 2) {
+          setTargetExpand(Math.min(0.65, targetExpand + Math.abs(e.deltaY) / 420));
+        }
+      }, { passive: true });
+
+      window.addEventListener("scroll", () => {
+        const scrollTop = window.scrollY || document.documentElement.scrollTop || 0;
+        if (scrollTop > 12) {
+          setTargetExpand(0);
+        }
+      }, { passive: true });
+    })();
+
+
+    function renderLiveUsersBar() {
+      const bar = $("liveUsersBar");
+      if (!bar) return;
+      const activeUsers = users.filter(u => u.status === "active");
+      const onlineUsers = activeUsers.filter(u => u.isOnline);
+      const pills = [];
+      pills.push(`<span class="live-badge">● ${onlineUsers.length} Çevrimiçi</span>`);
+      pills.push(`<span class="role-pill">${activeUsers.length} Aktif Kullanıcı</span>`);
+      if (onlineUsers.length > 0) {
+        const names = onlineUsers.map(u => `@${esc(u.username)}`).join(", ");
+        pills.push(`<span>Aktif kişiler: <b>${names}</b></span>`);
+      }
+      if (syncCfg.endpointUrl && syncCfg.endpointUrl.trim()) {
+        pills.push(`<span style="font-size:12px">• Sunucu Senkron Aktif</span>`);
+      }
+      bar.innerHTML = pills.join(" ");
+
+      const extBtn = $("openInBrowserBtn");
+      if (extBtn) {
+        if (window.location.protocol === "http:" || window.location.protocol === "https:") {
+          extBtn.href = window.location.href;
+          extBtn.style.display = "inline-flex";
+        } else {
+          extBtn.style.display = "none";
+        }
+      }
+    }
+
+    async function pullRemoteSnapshot() {
+      if (!syncCfg.endpointUrl || !syncCfg.endpointUrl.trim()) return;
+      try {
+        const res = await fetch(syncCfg.endpointUrl.trim(), { method: "GET" });
+        if (!res.ok) return;
+        const data = await res.json();
+        if (!data || typeof data !== "object") return;
+        let changed = false;
+        if (Array.isArray(data.stores) && data.stores.length > 0) {
+          stores = data.stores;
+          localStorage.setItem(KEYS.stores, JSON.stringify(stores));
+          changed = true;
+        }
+        if (Array.isArray(data.users)) {
+          users = data.users;
+          localStorage.setItem(KEYS.users, JSON.stringify(users));
+          changed = true;
+        }
+        if (data.config && typeof data.config === "object") {
+          config = {
+            ...DEFAULT_CONFIG,
+            ...data.config,
+            colors: { ...DEFAULT_COLORS, ...(data.config.colors || {}) },
+            plugins: { ...DEFAULT_CONFIG.plugins, ...(data.config.plugins || {}) }
+          };
+          localStorage.setItem(KEYS.config, JSON.stringify(config));
+          changed = true;
+        }
+        if (changed) {
+          reloadFromStorageAndApply();
+        }
+      } catch {}
+    }
+
+    const __origPushRemoteSnapshot = pushRemoteSnapshot;
+    pushRemoteSnapshot = async function() {
+      if (bc) {
+        syncCfg.updatedAt = new Date().toISOString();
+        localStorage.setItem(KEYS.sync, JSON.stringify(syncCfg));
+        bc.postMessage({ type: "STATE_SYNC", at: syncCfg.updatedAt, stores, users, config });
+      }
+      await __origPushRemoteSnapshot();
+    };
+
+    const __origRenderStores = renderStores;
+    renderStores = function() {
+      __origRenderStores();
+      renderLiveUsersBar();
+    };
+
+    if ($("refreshSyncBtn")) {
+      $("refreshSyncBtn").addEventListener("click", async () => {
+        await pullRemoteSnapshot();
+        reloadFromStorageAndApply();
+      });
+    }
+
+    if (syncCfg.endpointUrl && syncCfg.endpointUrl.trim()) {
+      pullRemoteSnapshot();
+      setInterval(() => {
+        if (!$("mainWorkspace").hidden || $("menuDrawer").classList.contains("open")) {
+          pullRemoteSnapshot();
+        }
+      }, 15000);
+    }
+
+    const initialTheme = localStorage.getItem(KEYS.theme) || "light";
+    applyTheme(initialTheme, false);
+    initBroadcastChannel();
+    syncDrawerControls();
+    syncLoginRoleUI();
+    if (session && (session.role === "admin" || session.role === "user")) {
+      enterWorkspace();
+    }
+    showPreloader(800);
+  </script>
+</body>
+</html>
